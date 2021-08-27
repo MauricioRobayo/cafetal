@@ -1,8 +1,6 @@
-import { getYieldFactor } from '@calculadora-cafetera/utils';
-import { Contrast } from '@smockle/contrast';
+import { getWeightBasedOnYieldFactor } from '@calculadora-cafetera/utils';
 import color from 'color';
 import styled from 'styled-components';
-import { defaultTheme } from '../../styles/theme';
 
 export interface YieldFactorProps {
   min: number;
@@ -16,24 +14,28 @@ const StyledYieldFactor = styled.div`
   align-items: center;
 `;
 
-const Wrapper = styled.div`
-  border: 1px solid red;
-`;
+const Wrapper = styled.div``;
 
-const Row = styled.div<{ backgroundColor: string; color: string }>`
+const Row = styled.div<{
+  backgroundColor: string;
+  highlighted: boolean;
+}>`
+  margin: 0.25em;
+  border-radius: 4px;
   display: flex;
+  align-items: end;
   font-size: 0.85rem;
-  color: ${({ color }) => color};
   background-color: ${({ backgroundColor }) => backgroundColor};
+  border: 1px solid black;
+  color: black;
+  font-weight: ${({ highlighted }) => (highlighted ? 'bold' : 'normal')};
 `;
 
 const Cell = styled.div`
   padding: 0.15em 0.5em;
-  text-align: center;
 `;
 
-export function YieldFactor(props: YieldFactorProps) {
-  const { min, max, base } = props;
+export function YieldFactor({ min, max, base }: YieldFactorProps) {
   const range = max - min + 1;
   const greenHue = 120;
   const yellowHue = 60;
@@ -42,40 +44,31 @@ export function YieldFactor(props: YieldFactorProps) {
   const redRange = base - min;
   const redStep = (greenHue - yellowHue) / redRange;
   const greenStep = (yellowHue - redHue) / greenRange;
-  const contrastThreshold = 4.5;
-
-  console.log({ greenStep, redStep });
-
-  const points = Array.from({ length: range }, (_, i) => min + i).reverse();
-  const hsl = { h: greenHue, s: 100, l: 50 };
+  const points = Array.from({ length: range }, (_, i) => min + i);
+  const hsl = { h: greenHue + greenStep, s: 100, l: 75 };
 
   return (
     <StyledYieldFactor>
       <Wrapper>
         {points.map((point) => {
-          if (point > base + 1) {
+          if (point > base) {
             hsl.h = hsl.h - greenStep;
           } else {
             hsl.h = hsl.h - redStep;
           }
+          console.log({ point, base, hue: hsl.h, boolean: base === point });
           const backgroundColor = color(hsl);
-          const contrast = new Contrast(
-            defaultTheme.colors.secondaryDark,
-            backgroundColor.hex()
-          );
 
-          const fontColor =
-            contrast.value < contrastThreshold
-              ? defaultTheme.colors.mainLight
-              : defaultTheme.colors.secondaryDark;
+          const weight = getWeightBasedOnYieldFactor(point);
+
           return (
             <Row
               key={point}
-              color={fontColor}
               backgroundColor={backgroundColor.hex()}
+              highlighted={point === base}
             >
               <Cell>{point}</Cell>
-              <Cell>{getYieldFactor(point).toFixed(2)}</Cell>
+              <Cell>{weight.toFixed(2)}</Cell>
             </Row>
           );
         })}

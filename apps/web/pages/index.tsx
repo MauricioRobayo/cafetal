@@ -2,18 +2,25 @@ import { ChangeEvent } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import YieldFactor from '../components/yield-factor/yield-factor';
-import { getYieldFactor } from '@calculadora-cafetera/utils';
+import {
+  getYieldFactor,
+  getWeightBasedOnYieldFactor,
+} from '@calculadora-cafetera/utils';
 
-const StyledPage = styled.div``;
+const StyledPage = styled.div`
+  text-align: center;
+`;
 
 export function Index() {
-  const baseWeight = 189.8;
   const maxWeight = 200;
   const minWeight = 174;
-  const baseYieldFactor = getYieldFactor(baseWeight);
+  const baseYieldFactor = 94;
+  const baseWeight = getWeightBasedOnYieldFactor(baseYieldFactor);
 
-  const [premiumGrams, setPremiumGrams] = useState(baseWeight.toFixed(1));
-  const [yieldFactor, setYieldFactor] = useState(baseYieldFactor.toFixed(2));
+  const [premiumGrams, setPremiumGrams] = useState(baseWeight.toFixed(2));
+  const [yieldFactor, setYieldFactor] = useState<number | null>(
+    baseYieldFactor
+  );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const gramsString = e.target.value;
@@ -29,14 +36,14 @@ export function Index() {
     }
 
     if (grams > maxWeight || grams < minWeight) {
-      setYieldFactor('');
+      setYieldFactor(null);
       setPremiumGrams(gramsString);
       return;
     }
 
     const yieldFactor = getYieldFactor(grams);
 
-    setYieldFactor(yieldFactor.toFixed(1));
+    setYieldFactor(yieldFactor);
     setPremiumGrams(gramsString);
   };
 
@@ -47,15 +54,19 @@ export function Index() {
       </header>
       <main>
         <section>
-          <label htmlFor="grams">Peso cafe excelso:</label>
+          <label htmlFor="grams">Peso cafe excelso</label>
           <input
             id="grams"
             type="text"
             onChange={onChange}
             value={premiumGrams}
           />
-          <h4>Factor de rendimiento:</h4>
-          <YieldFactor min={minWeight} max={maxWeight} base={baseWeight} />
+          <span>gramos.</span>
+          <div>
+            Factor de rendimiento:{' '}
+            {typeof yieldFactor === 'number' ? yieldFactor.toFixed(2) : ''}
+          </div>
+          <YieldFactor min={89} max={99} base={baseYieldFactor} />
         </section>
       </main>
     </StyledPage>
