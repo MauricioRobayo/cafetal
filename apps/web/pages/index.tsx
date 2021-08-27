@@ -1,24 +1,19 @@
 import { ChangeEvent } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import YieldFactor from '../components/yield-factor/yield-factor';
+import { getYieldFactor } from '@calculadora-cafetera/utils';
 
 const StyledPage = styled.div``;
 
-function getYieldFactor(weight: number): number {
-  const coffeeBagWeightKg = 70;
-  const CPS = 250;
-  return (CPS * coffeeBagWeightKg) / weight;
-}
-
 export function Index() {
   const baseWeight = 189.8;
-  const maxWeight = 250;
-  const minWeight = 90;
+  const maxWeight = 200;
+  const minWeight = 174;
+  const baseYieldFactor = getYieldFactor(baseWeight);
 
-  const [grams, setGrams] = useState(baseWeight.toFixed(1));
-  const [yieldFactor, setYieldFactor] = useState(
-    getYieldFactor(baseWeight).toFixed(2)
-  );
+  const [premiumGrams, setPremiumGrams] = useState(baseWeight.toFixed(1));
+  const [yieldFactor, setYieldFactor] = useState(baseYieldFactor.toFixed(2));
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const gramsString = e.target.value;
@@ -35,14 +30,14 @@ export function Index() {
 
     if (grams > maxWeight || grams < minWeight) {
       setYieldFactor('');
-      setGrams(gramsString);
+      setPremiumGrams(gramsString);
       return;
     }
 
     const yieldFactor = getYieldFactor(grams);
 
     setYieldFactor(yieldFactor.toFixed(1));
-    setGrams(gramsString);
+    setPremiumGrams(gramsString);
   };
 
   return (
@@ -53,9 +48,14 @@ export function Index() {
       <main>
         <section>
           <label htmlFor="grams">Peso cafe excelso:</label>
-          <input id="grams" type="text" onChange={onChange} value={grams} />
+          <input
+            id="grams"
+            type="text"
+            onChange={onChange}
+            value={premiumGrams}
+          />
           <h4>Factor de rendimiento:</h4>
-          <div>{yieldFactor}</div>
+          <YieldFactor min={minWeight} max={maxWeight} base={baseWeight} />
         </section>
       </main>
     </StyledPage>

@@ -1,7 +1,7 @@
 {
-  "npmScope": "calculadoracafetera",
+  "npmScope": "calculadora-cafetera",
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "master"
   },
   "implicitDependencies": {
     "package.json": {
@@ -27,12 +27,15 @@
     ]
   },
   "projects": {
-    "calculadoracafetera": {
+    "utils": {
       "tags": []
     },
-    "calculadoracafetera-e2e": {
+    "web": {
+      "tags": []
+    },
+    "web-e2e": {
       "tags": [],
-      "implicitDependencies": ["calculadoracafetera"]
+      "implicitDependencies": ["web"]
     }
   }
 }
