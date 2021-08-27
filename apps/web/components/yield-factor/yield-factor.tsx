@@ -1,5 +1,8 @@
+import { getYieldFactor } from '@calculadora-cafetera/utils';
+import { Contrast } from '@smockle/contrast';
+import color from 'color';
 import styled from 'styled-components';
-import { getYieldFactor } from '@calculadoracafetera/utils';
+import { defaultTheme } from '../../styles/theme';
 
 export interface YieldFactorProps {
   min: number;
@@ -17,10 +20,16 @@ const Wrapper = styled.div`
   border: 1px solid red;
 `;
 
-const Point = styled.div<{ hue: number }>`
-  padding: 0.15em 0.5em;
+const Row = styled.div<{ backgroundColor: string; color: string }>`
+  display: flex;
   font-size: 0.85rem;
-  background-color: hsl(${({ hue }) => hue}, 100%, 50%);
+  color: ${({ color }) => color};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+`;
+
+const Cell = styled.div`
+  padding: 0.15em 0.5em;
+  text-align: center;
 `;
 
 export function YieldFactor(props: YieldFactorProps) {
@@ -31,29 +40,43 @@ export function YieldFactor(props: YieldFactorProps) {
   const redHue = 0;
   const greenRange = max - base;
   const redRange = base - min;
-  const redStep = 60 / redRange;
-  const greenStep = 60 / greenRange;
+  const redStep = (greenHue - yellowHue) / redRange;
+  const greenStep = (yellowHue - redHue) / greenRange;
+  const contrastThreshold = 4.5;
 
   console.log({ greenStep, redStep });
 
   const points = Array.from({ length: range }, (_, i) => min + i).reverse();
-  let hue = greenHue;
+  const hsl = { h: greenHue, s: 100, l: 50 };
 
   return (
     <StyledYieldFactor>
       <Wrapper>
         {points.map((point) => {
           if (point > base + 1) {
-            hue = hue - greenStep;
+            hsl.h = hsl.h - greenStep;
           } else {
-            hue = hue - redStep;
+            hsl.h = hsl.h - redStep;
           }
-          console.log({ point, base, hue });
+          const backgroundColor = color(hsl);
+          const contrast = new Contrast(
+            defaultTheme.colors.secondaryDark,
+            backgroundColor.hex()
+          );
 
+          const fontColor =
+            contrast.value < contrastThreshold
+              ? defaultTheme.colors.mainLight
+              : defaultTheme.colors.secondaryDark;
           return (
-            <Point key={point} hue={hue}>
-              {point}
-            </Point>
+            <Row
+              key={point}
+              color={fontColor}
+              backgroundColor={backgroundColor.hex()}
+            >
+              <Cell>{point}</Cell>
+              <Cell>{getYieldFactor(point).toFixed(2)}</Cell>
+            </Row>
           );
         })}
       </Wrapper>
