@@ -1,6 +1,6 @@
 import { getWeightBasedOnYieldFactor } from '@calculadora-cafetera/utils';
 import color from 'color';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export interface YieldFactorProps {
   min: number;
@@ -30,15 +30,25 @@ const Cell = styled.div<{
   backgroundColor: string;
 }>`
   display: flex;
+  gap: 1em;
   justify-content: center;
   font-weight: ${({ highlighted }) => (highlighted ? 'bold' : 'normal')};
   background-color: ${({ backgroundColor }) => backgroundColor};
   padding: 0.15em 0.5em;
 `;
 
-const Indicator = styled.div<{ offset: number }>`
+const Indicator = styled.div<{ offset: number; position: 'left' | 'right' }>`
   position: absolute;
-  left: -1em;
+  font-weight: bold;
+  font-size: 1rem;
+  ${({ position }) =>
+    position === 'left'
+      ? css`
+          left: -0.75rem;
+        `
+      : css`
+          right: -0.75rem;
+        `}
   line-height: 0;
   top: ${({ offset }) => `${offset}%`};
   font-weight: bold;
@@ -75,15 +85,22 @@ export function YieldFactor({ min, max, base, value }: YieldFactorProps) {
           return (
             <Row key={point}>
               {offset !== null ? (
-                <Indicator offset={offset + 50}>{'>'}</Indicator>
+                <Indicator offset={offset + 50} position="left">
+                  {'>'}
+                </Indicator>
               ) : null}
               <Cell
                 highlighted={point === base}
                 backgroundColor={backgroundColor.hex()}
               >
-                <div>{weight.toFixed(2)}</div>
                 <div>{point}</div>
+                <div>{weight.toFixed(2)}</div>
               </Cell>
+              {offset !== null ? (
+                <Indicator offset={offset + 50} position="right">
+                  {'<'}
+                </Indicator>
+              ) : null}
             </Row>
           );
         })}
