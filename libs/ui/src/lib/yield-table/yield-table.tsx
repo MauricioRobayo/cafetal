@@ -1,4 +1,7 @@
-import { getWeightBasedOnYieldFactor } from '@calculadora-cafetera/utils';
+import {
+  getSellPrice,
+  getWeightBasedOnYieldFactor,
+} from '@calculadora-cafetera/utils';
 import color from 'color';
 import styled, { css } from 'styled-components';
 
@@ -8,6 +11,7 @@ export interface YieldFactorProps {
   base: number;
   sampleSize: number;
   value: number | null;
+  refPrice: number;
 }
 
 const StyledYieldFactor = styled.div`
@@ -61,6 +65,7 @@ export function YieldFactor({
   base,
   sampleSize,
   value,
+  refPrice,
 }: YieldFactorProps) {
   const range = max - min + 1;
   const greenHue = 120;
@@ -89,6 +94,8 @@ export function YieldFactor({
           const offset =
             value && point === Math.trunc(value) ? (value - point) * 100 : null;
 
+          const sellPrice = getSellPrice(base, point, refPrice);
+
           return (
             <Row key={point}>
               {offset !== null ? (
@@ -102,6 +109,7 @@ export function YieldFactor({
               >
                 <div>{point}</div>
                 <div>{weight.toFixed(2)}</div>
+                <div>{sellPrice.toFixed(0)}</div>
               </Cell>
               {offset !== null ? (
                 <Indicator offset={offset + 50} position="right">

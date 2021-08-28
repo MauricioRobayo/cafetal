@@ -120,13 +120,14 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         Factor de rendimiento:{' '}
         {typeof yieldFactor === 'number' ? yieldFactor.toFixed(2) : ''}
       </div>
-      <div>Precio de compra: {sellPrice?.toFixed(2)}</div>
+      <div>Precio de compra: {sellPrice?.toFixed()}</div>
       <YieldFactor
         min={89}
         max={99}
         base={baseYieldFactor}
         value={yieldFactor}
         sampleSize={sampleSize}
+        refPrice={refPrice}
       />
     </StyledYieldCalculator>
   );
