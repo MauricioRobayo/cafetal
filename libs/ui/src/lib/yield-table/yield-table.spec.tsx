@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import YieldFactor from './yield-factor';
+import YieldTable from './yield-table';
 
-describe('YieldFactor', () => {
+describe('YieldTable', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<YieldFactor />);
+    const { baseElement } = render(<YieldTable />);
     expect(baseElement).toBeTruthy();
   });
 });

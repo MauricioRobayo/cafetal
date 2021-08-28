@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import YieldCalculator from '../components/yield-calculator/yield-calculator';
+import { YieldCalculator } from '@calculadora-cafetera/ui';
 
 const StyledPage = styled.div`
   text-align: center;

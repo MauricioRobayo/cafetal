@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@calculadora-cafetera/ui": ["libs/ui/src/index.ts"],
       "@calculadora-cafetera/utils": ["libs/utils/src/index.ts"]
     }
   },

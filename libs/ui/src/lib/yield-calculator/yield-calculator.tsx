@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ChangeEvent } from 'react';
 import { useState } from 'react';
-import YieldFactor from '../yield-factor/yield-factor';
+import YieldFactor from '../yield-table/yield-table';
 import {
   getYieldFactor,
   getWeightBasedOnYieldFactor,
