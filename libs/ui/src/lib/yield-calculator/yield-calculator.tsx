@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ChangeEvent } from 'react';
 import { useState } from 'react';
-import YieldFactor from '../yield-table/yield-table';
+import YieldTable from '../yield-table/yield-table';
 import {
   getYieldFactor,
   getWeightBasedOnYieldFactor,
@@ -121,11 +121,11 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         {typeof yieldFactor === 'number' ? yieldFactor.toFixed(2) : ''}
       </div>
       <div>Precio de compra: {sellPrice?.toFixed()}</div>
-      <YieldFactor
+      <YieldTable
         min={89}
         max={99}
-        base={baseYieldFactor}
-        value={yieldFactor}
+        baseYieldFactor={baseYieldFactor}
+        yieldFactor={yieldFactor}
         sampleSize={sampleSize}
         refPrice={refPrice}
       />

@@ -8,9 +8,9 @@ import styled, { css } from 'styled-components';
 export interface YieldFactorProps {
   min: number;
   max: number;
-  base: number;
+  baseYieldFactor: number;
   sampleSize: number;
-  value: number | null;
+  yieldFactor: number | null;
   refPrice: number;
 }
 
@@ -59,20 +59,20 @@ const Indicator = styled.div<{ offset: number; position: 'left' | 'right' }>`
   font-weight: bold;
 `;
 
-export function YieldFactor({
+export function YieldTable({
   min,
   max,
-  base,
+  baseYieldFactor,
   sampleSize,
-  value,
+  yieldFactor: value,
   refPrice,
 }: YieldFactorProps) {
   const range = max - min + 1;
   const greenHue = 120;
   const yellowHue = 60;
   const redHue = 0;
-  const greenRange = max - base;
-  const redRange = base - min;
+  const greenRange = max - baseYieldFactor;
+  const redRange = baseYieldFactor - min;
   const redStep = (greenHue - yellowHue) / redRange;
   const greenStep = (yellowHue - redHue) / greenRange;
   const points = Array.from({ length: range }, (_, i) => min + i);
@@ -82,7 +82,7 @@ export function YieldFactor({
     <StyledYieldFactor>
       <Wrapper>
         {points.map((point) => {
-          if (point > base) {
+          if (point > baseYieldFactor) {
             hsl.h = hsl.h - greenStep;
           } else {
             hsl.h = hsl.h - redStep;
@@ -94,7 +94,7 @@ export function YieldFactor({
           const offset =
             value && point === Math.trunc(value) ? (value - point) * 100 : null;
 
-          const sellPrice = getSellPrice(base, point, refPrice);
+          const sellPrice = getSellPrice(baseYieldFactor, point, refPrice);
 
           return (
             <Row key={point}>
@@ -104,7 +104,7 @@ export function YieldFactor({
                 </Indicator>
               ) : null}
               <Cell
-                highlighted={point === base}
+                highlighted={point === baseYieldFactor}
                 backgroundColor={backgroundColor.hex()}
               >
                 <div>{point}</div>
@@ -124,4 +124,4 @@ export function YieldFactor({
   );
 }
 
-export default YieldFactor;
+export default YieldTable;
