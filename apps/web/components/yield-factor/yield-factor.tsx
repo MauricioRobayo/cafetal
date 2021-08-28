@@ -34,7 +34,6 @@ const Cell = styled.div<{
   font-weight: ${({ highlighted }) => (highlighted ? 'bold' : 'normal')};
   background-color: ${({ backgroundColor }) => backgroundColor};
   padding: 0.15em 0.5em;
-  div: ;
 `;
 
 const Indicator = styled.div<{ offset: number }>`
@@ -72,14 +71,6 @@ export function YieldFactor({ min, max, base, value }: YieldFactorProps) {
 
           const offset =
             value && point === Math.trunc(value) ? (value - point) * 100 : null;
-
-          console.log({
-            round: Math.round(value || 0),
-            value,
-            point,
-            offset,
-            b: value && point === Math.round(value),
-          });
 
           return (
             <Row key={point}>
