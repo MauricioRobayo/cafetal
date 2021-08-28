@@ -1,7 +1,6 @@
 import { getWeightBasedOnYieldFactor } from '@calculadora-cafetera/utils';
 import color from 'color';
 import styled from 'styled-components';
-import { RiArrowRightSFill } from 'react-icons/ri';
 
 export interface YieldFactorProps {
   min: number;
