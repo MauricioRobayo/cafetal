@@ -1,41 +1,52 @@
 import { getWeightBasedOnYieldFactor } from '@calculadora-cafetera/utils';
 import color from 'color';
 import styled from 'styled-components';
+import { RiArrowRightSFill } from 'react-icons/ri';
 
 export interface YieldFactorProps {
   min: number;
   max: number;
   base: number;
+  value: number | null;
 }
 
 const StyledYieldFactor = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 `;
 
-const Wrapper = styled.div``;
-
-const Row = styled.div<{
-  backgroundColor: string;
-  highlighted: boolean;
-}>`
-  margin: 0.25em;
-  border-radius: 4px;
+const Wrapper = styled.div`
   display: flex;
-  align-items: end;
+  flex-direction: column;
+`;
+
+const Row = styled.div`
+  position: relative;
   font-size: 0.85rem;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  border: 1px solid black;
   color: black;
+`;
+
+const Cell = styled.div<{
+  highlighted: boolean;
+  backgroundColor: string;
+}>`
+  display: flex;
+  justify-content: center;
   font-weight: ${({ highlighted }) => (highlighted ? 'bold' : 'normal')};
-`;
-
-const Cell = styled.div`
+  background-color: ${({ backgroundColor }) => backgroundColor};
   padding: 0.15em 0.5em;
+  div: ;
 `;
 
-export function YieldFactor({ min, max, base }: YieldFactorProps) {
+const Indicator = styled.div<{ offset: number }>`
+  position: absolute;
+  left: -1em;
+  line-height: 0;
+  top: ${({ offset }) => `${offset}%`};
+  font-weight: bold;
+`;
+
+export function YieldFactor({ min, max, base, value }: YieldFactorProps) {
   const range = max - min + 1;
   const greenHue = 120;
   const yellowHue = 60;
@@ -56,19 +67,33 @@ export function YieldFactor({ min, max, base }: YieldFactorProps) {
           } else {
             hsl.h = hsl.h - redStep;
           }
-          console.log({ point, base, hue: hsl.h, boolean: base === point });
           const backgroundColor = color(hsl);
 
           const weight = getWeightBasedOnYieldFactor(point);
 
+          const offset =
+            value && point === Math.trunc(value) ? (value - point) * 100 : null;
+
+          console.log({
+            round: Math.round(value || 0),
+            value,
+            point,
+            offset,
+            b: value && point === Math.round(value),
+          });
+
           return (
-            <Row
-              key={point}
-              backgroundColor={backgroundColor.hex()}
-              highlighted={point === base}
-            >
-              <Cell>{point}</Cell>
-              <Cell>{weight.toFixed(2)}</Cell>
+            <Row key={point}>
+              {offset !== null ? (
+                <Indicator offset={offset + 50}>{'>'}</Indicator>
+              ) : null}
+              <Cell
+                highlighted={point === base}
+                backgroundColor={backgroundColor.hex()}
+              >
+                <div>{weight.toFixed(2)}</div>
+                <div>{point}</div>
+              </Cell>
             </Row>
           );
         })}

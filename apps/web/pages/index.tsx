@@ -57,16 +57,22 @@ export function Index() {
           <label htmlFor="grams">Peso cafe excelso</label>
           <input
             id="grams"
-            type="text"
             onChange={onChange}
             value={premiumGrams}
+            type="number"
+            step="0.01"
           />
           <span>gramos.</span>
           <div>
             Factor de rendimiento:{' '}
             {typeof yieldFactor === 'number' ? yieldFactor.toFixed(2) : ''}
           </div>
-          <YieldFactor min={89} max={99} base={baseYieldFactor} />
+          <YieldFactor
+            min={89}
+            max={99}
+            base={baseYieldFactor}
+            value={yieldFactor}
+          />
         </section>
       </main>
     </StyledPage>
