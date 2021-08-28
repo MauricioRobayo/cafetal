@@ -1,10 +1,20 @@
 const coffeeBagWeightKg = 70;
-const CPS = 250;
 
-export function getYieldFactor(weight: number): number {
-  return (CPS * coffeeBagWeightKg) / weight;
+export function getYieldFactor(weight: number, sampleSize = 250): number {
+  return (sampleSize * coffeeBagWeightKg) / weight;
 }
 
-export function getWeightBasedOnYieldFactor(yieldFactor: number): number {
-  return (CPS * coffeeBagWeightKg) / yieldFactor;
+export function getWeightBasedOnYieldFactor(
+  yieldFactor: number,
+  sampleSize = 250
+): number {
+  return (sampleSize * coffeeBagWeightKg) / yieldFactor;
+}
+
+export function getSellPrice(
+  baseYieldFactor: number,
+  yieldFactor: number,
+  refPrice: number
+): number {
+  return (baseYieldFactor / yieldFactor) * refPrice;
 }

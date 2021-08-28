@@ -6,6 +6,7 @@ export interface YieldFactorProps {
   min: number;
   max: number;
   base: number;
+  sampleSize: number;
   value: number | null;
 }
 
@@ -54,7 +55,13 @@ const Indicator = styled.div<{ offset: number; position: 'left' | 'right' }>`
   font-weight: bold;
 `;
 
-export function YieldFactor({ min, max, base, value }: YieldFactorProps) {
+export function YieldFactor({
+  min,
+  max,
+  base,
+  sampleSize,
+  value,
+}: YieldFactorProps) {
   const range = max - min + 1;
   const greenHue = 120;
   const yellowHue = 60;
@@ -77,7 +84,7 @@ export function YieldFactor({ min, max, base, value }: YieldFactorProps) {
           }
           const backgroundColor = color(hsl);
 
-          const weight = getWeightBasedOnYieldFactor(point);
+          const weight = getWeightBasedOnYieldFactor(point, sampleSize);
 
           const offset =
             value && point === Math.trunc(value) ? (value - point) * 100 : null;
