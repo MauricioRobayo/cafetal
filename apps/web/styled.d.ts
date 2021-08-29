@@ -2,22 +2,14 @@ import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: {
-      danger: string;
-      main: string;
-      mainComplement: string;
-      mainDark: string;
-      mainLight: string;
-      secondary: string;
-      secondaryDark: string;
-      secondaryLight: string;
-      secondaryLighter: string;
-      success: string;
-      warning: string;
-      warningLighter: string;
+    color: {
+      brand: string;
+      text1: string;
+      text2: string;
+      surface1: string;
+      surface2: string;
+      surface3: string;
+      surface4: string;
     };
-    maxWidth: string;
-    maxWidthNarrow: string;
-    maxWidthWider: string;
   }
 }
