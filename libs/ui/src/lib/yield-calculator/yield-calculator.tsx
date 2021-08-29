@@ -80,7 +80,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
   return (
     <StyledYieldCalculator>
       <div>
-        <label htmlFor="refPrice">Precio base</label>
+        <label htmlFor="refPrice">Precio de referencia</label>
         <input
           id="refPrice"
           onChange={onRefPriceChange}
