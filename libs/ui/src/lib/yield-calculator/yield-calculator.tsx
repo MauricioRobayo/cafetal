@@ -6,6 +6,7 @@ import {
   getYieldFactor,
   getWeightBasedOnYieldFactor,
   getSellPrice,
+  getDecrease,
 } from '@calculadora-cafetera/utils';
 
 /* eslint-disable-next-line */
@@ -16,11 +17,12 @@ const StyledYieldCalculator = styled.div``;
 export function YieldCalculator(props: YieldCalculatorProps) {
   const baseYieldFactor = 94;
   const baseRefPrice = 1500000;
-  const baseWeight = getWeightBasedOnYieldFactor(baseYieldFactor);
+  const baseSampleSize = 250;
+  const basePremiumGrams = getWeightBasedOnYieldFactor(baseYieldFactor);
 
   const [refPrice, setRefPrice] = useState(baseRefPrice);
-  const [sampleSize, setSampleSize] = useState(250);
-  const [premiumGrams, setPremiumGrams] = useState(baseWeight);
+  const [sampleSize, setSampleSize] = useState(baseSampleSize);
+  const [premiumGrams, setPremiumGrams] = useState(basePremiumGrams);
   const [sellPrice, setSellPrice] = useState(baseRefPrice);
   const [yieldFactor, setYieldFactor] = useState(baseYieldFactor);
 
