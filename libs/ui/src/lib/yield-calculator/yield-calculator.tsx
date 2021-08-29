@@ -43,29 +43,31 @@ export function YieldCalculator(props: YieldCalculatorProps) {
     setSampleSize(sampleSize);
   };
 
-  const onGramsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const grams = Number(e.target.value);
+  const onPremiumGramsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const premiumGrams = Number(e.target.value);
+
+    const yieldFactor = getYieldFactor(premiumGrams, sampleSize);
 
     setSellPrice(getSellPrice(baseYieldFactor, yieldFactor, refPrice));
-    setYieldFactor(getYieldFactor(grams, sampleSize));
-    setPremiumGrams(grams);
+    setYieldFactor(yieldFactor);
+    setPremiumGrams(premiumGrams);
   };
 
   return (
     <StyledYieldCalculator>
       <div>
-        <label htmlFor="refPrice">Precio de referencia</label>
+        <label htmlFor="ref-price">Precio de referencia</label>
         <input
-          id="refPrice"
+          id="ref-price"
           onChange={onRefPriceChange}
           value={refPrice}
           type="number"
         />
       </div>
       <div>
-        <label htmlFor="sampleSize">Tamaño de la muestra en gramos</label>
+        <label htmlFor="sample-size">Tamaño de la muestra en gramos</label>
         <input
-          id="sampleSize"
+          id="sample-size"
           onChange={onSampleSizeChange}
           value={sampleSize}
           type="number"
@@ -74,10 +76,10 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         />
       </div>
       <div>
-        <label htmlFor="grams">Gramos de cafe excelso resultante</label>
+        <label htmlFor="premium-grams">Gramos de cafe excelso resultante</label>
         <input
-          id="grams"
-          onChange={onGramsChange}
+          id="premium-grams"
+          onChange={onPremiumGramsChange}
           value={premiumGrams}
           type="number"
           step="0.01"
