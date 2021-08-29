@@ -1,13 +1,11 @@
-import styled from 'styled-components';
-import { ChangeEvent } from 'react';
-import { useState } from 'react';
 // import YieldTable from '../yield-table/yield-table';
 import {
-  getYieldFactor,
-  getWeightBasedOnYieldFactor,
   getSellPrice,
-  getDecrease,
+  getWeightBasedOnYieldFactor,
+  getYieldFactor,
 } from '@calculadora-cafetera/utils';
+import { ChangeEvent, useState } from 'react';
+import styled from 'styled-components';
 
 /* eslint-disable-next-line */
 export interface YieldCalculatorProps {}
