@@ -85,7 +85,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         <span>gramos.</span>
       </div>
       <div>Factor de rendimiento: {yieldFactor}</div>
-      <div>Precio de compra: {sellPrice?.toFixed()}</div>
+      <div>Precio de compra: {sellPrice}</div>
       {/* <YieldTable
         min={89}
         max={99}
