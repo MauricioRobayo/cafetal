@@ -18,11 +18,11 @@ export function YieldCalculator(props: YieldCalculatorProps) {
   const baseRefPrice = 1500000;
   const baseWeight = getWeightBasedOnYieldFactor(baseYieldFactor);
 
-  const [refPrice, setRefPrice] = useState<number>(baseRefPrice);
+  const [refPrice, setRefPrice] = useState(baseRefPrice);
   const [sampleSize, setSampleSize] = useState(250);
   const [premiumGrams, setPremiumGrams] = useState(baseWeight);
-  const [sellPrice, setSellPrice] = useState<number>(baseRefPrice);
-  const [yieldFactor, setYieldFactor] = useState<number>(baseYieldFactor);
+  const [sellPrice, setSellPrice] = useState(baseRefPrice);
+  const [yieldFactor, setYieldFactor] = useState(baseYieldFactor);
 
   const onRefPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
     const refPrice = Number(e.target.value);
