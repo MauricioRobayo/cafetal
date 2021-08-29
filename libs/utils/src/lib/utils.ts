@@ -18,3 +18,7 @@ export function getSellPrice(
 ): number {
   return (baseYieldFactor / yieldFactor) * refPrice;
 }
+
+export function getDecrease(premiumGrams: number, sampleSize: number): number {
+  return (sampleSize - premiumGrams) / sampleSize;
+}
