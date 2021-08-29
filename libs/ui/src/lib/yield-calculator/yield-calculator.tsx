@@ -14,8 +14,6 @@ export interface YieldCalculatorProps {}
 const StyledYieldCalculator = styled.div``;
 
 export function YieldCalculator(props: YieldCalculatorProps) {
-  const maxWeight = 200;
-  const minWeight = 174;
   const maxSampleSize = 500;
   const minSampleSize = 100;
   const baseYieldFactor = 94;
@@ -63,17 +61,13 @@ export function YieldCalculator(props: YieldCalculatorProps) {
   const onGramsChange = (e: ChangeEvent<HTMLInputElement>) => {
     const gramsString = e.target.value;
 
+    console.log({ gramsString });
+
     if (!/^\d*\.?\d{0,2}$/.test(gramsString)) {
       return;
     }
 
     const grams = Number(gramsString);
-
-    if (grams > maxWeight || grams < minWeight) {
-      setYieldFactor(null);
-      setPremiumGrams(gramsString);
-      return;
-    }
 
     const yieldFactor = getYieldFactor(grams, sampleSize);
     const sellPrice = getSellPrice(baseYieldFactor, yieldFactor, refPrice);
