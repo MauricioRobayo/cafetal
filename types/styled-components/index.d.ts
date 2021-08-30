@@ -10,6 +10,7 @@ declare module 'styled-components' {
       surface2: string;
       surface3: string;
       surface4: string;
+      surfaceShadow: string;
     };
   }
 }
