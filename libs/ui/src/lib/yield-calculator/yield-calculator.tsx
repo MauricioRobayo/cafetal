@@ -11,6 +11,10 @@ import styled from 'styled-components';
 export interface YieldCalculatorProps {}
 
 const StyledYieldCalculator = styled.div``;
+const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export function YieldCalculator(props: YieldCalculatorProps) {
   const baseYieldFactor = 94;
@@ -55,7 +59,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
 
   return (
     <StyledYieldCalculator>
-      <div>
+      <Field>
         <label htmlFor="ref-price">Precio de referencia</label>
         <input
           id="ref-price"
@@ -63,8 +67,8 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           value={refPrice}
           type="number"
         />
-      </div>
-      <div>
+      </Field>
+      <Field>
         <label htmlFor="sample-size">Tamaño de la muestra en gramos</label>
         <input
           id="sample-size"
@@ -74,8 +78,8 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           max="250"
           min="100"
         />
-      </div>
-      <div>
+      </Field>
+      <Field>
         <label htmlFor="premium-grams">Gramos de cafe excelso resultante</label>
         <input
           id="premium-grams"
@@ -84,10 +88,15 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           type="number"
           step="0.01"
         />
-        <span>gramos.</span>
-      </div>
-      <div>Factor de rendimiento: {yieldFactor}</div>
-      <div>Precio de compra: {sellPrice}</div>
+      </Field>
+      <Field>
+        <div>Factor de rendimiento</div>
+        <div> {yieldFactor}</div>
+      </Field>
+      <Field>
+        <div>Precio de compra</div>
+        <div>{sellPrice}</div>
+      </Field>
       {/* <YieldTable
         min={89}
         max={99}
