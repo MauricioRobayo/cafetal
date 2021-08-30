@@ -1,13 +1,17 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-/* eslint-disable-next-line */
-export interface NumberInputProps {
-  className?: string;
-  onChange: (value: number, stringValue: string) => void;
-  inputMode: 'numeric' | 'decimal';
-  value: number;
-}
+type Modify<T, R> = Omit<T, keyof R> & R;
+
+export type NumberInputProps = Modify<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  {
+    className?: string;
+    onChange: (value: number, stringValue: string) => void;
+    value: number;
+    inputMode?: 'numeric' | 'decimal';
+  }
+>;
 
 const StyledNumberInput = styled.input`
   padding: 0.25em;
@@ -21,10 +25,10 @@ const StyledNumberInput = styled.input`
 `;
 
 export function NumberInput({
-  className,
+  className = '',
   onChange,
-  inputMode = 'numeric',
   value,
+  inputMode = 'numeric',
   ...props
 }: NumberInputProps) {
   const [stringValue, setStringValue] = useState(String(value));

@@ -68,7 +68,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       <Field>
         <Label htmlFor="ref-price">Precio de referencia</Label>
         <StyledNumberInput
-          id="ref-price"
+          name="ref-price"
           onChange={onRefPriceChange}
           value={refPrice}
         />
@@ -76,7 +76,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       <Field>
         <Label htmlFor="sample-size">Tamaño de la muestra</Label>
         <StyledNumberInput
-          id="sample-size"
+          name="sample-size"
           onChange={onSampleSizeChange}
           value={sampleSize}
         />
@@ -84,7 +84,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       <Field>
         <Label htmlFor="premium-grams">Café excelso</Label>
         <StyledNumberInput
-          id="premium-grams"
+          name="premium-grams"
           onChange={onPremiumGramsChange}
           value={premiumGrams}
           step={0.01}
