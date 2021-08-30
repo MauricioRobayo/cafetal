@@ -16,10 +16,17 @@ const Field = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2em 0;
+  align-items: center;
 `;
 const Label = styled.label`
-  margin: 0 0 1em 0;
-  font-size: 1.5rem;
+  margin: 0 0 0.5em 0;
+  font-size: 1.25rem;
+`;
+const StyledNumberInput = styled(NumberInput)`
+  text-align: center;
+  max-width: 320px;
+  width: 100%;
+  font-size: 1.75rem;
 `;
 
 export function YieldCalculator(props: YieldCalculatorProps) {
@@ -67,7 +74,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
     <StyledYieldCalculator>
       <Field>
         <Label htmlFor="ref-price">Precio de referencia</Label>
-        <NumberInput
+        <StyledNumberInput
           id="ref-price"
           onChange={onRefPriceChange}
           value={refPrice}
@@ -75,7 +82,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       </Field>
       <Field>
         <Label htmlFor="sample-size">Tamaño de la muestra</Label>
-        <NumberInput
+        <StyledNumberInput
           id="sample-size"
           onChange={onSampleSizeChange}
           value={sampleSize}
@@ -83,7 +90,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       </Field>
       <Field>
         <Label htmlFor="premium-grams">Café excelso</Label>
-        <NumberInput
+        <StyledNumberInput
           id="premium-grams"
           onChange={onPremiumGramsChange}
           value={premiumGrams}
