@@ -87,7 +87,6 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           name="premium-grams"
           onChange={onPremiumGramsChange}
           value={premiumGrams}
-          step={0.01}
         />
       </Field>
       <Field>

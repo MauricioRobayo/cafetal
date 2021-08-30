@@ -1,21 +1,30 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-type Modify<T, R> = Omit<T, keyof R> & R;
+function formatCurrency(number: number, showDecimals: boolean): string {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'COP',
+    maximumFractionDigits: showDecimals ? 2 : 0,
+  });
 
-export type NumberInputProps = Modify<
+  return formatter.format(number);
+}
+
+type Modify<T, R> = Omit<T, keyof R> & R;
+type ModifiedInputProps = Modify<
   React.InputHTMLAttributes<HTMLInputElement>,
   {
     className?: string;
-    onChange: (value: number, stringValue: string) => void;
+    onChange: (value: number) => void;
     value: number;
-    inputMode?: 'numeric' | 'decimal';
   }
 >;
+export type NumberInputProps = Omit<ModifiedInputProps, 'type'>;
 
 const StyledNumberInput = styled.input`
   padding: 0.25em;
-  border: none;
+  border: 1px solid transparent;
   border-bottom: 2px solid ${({ theme }) => theme.color.brand};
   &:focus {
     outline: none;
@@ -28,14 +37,19 @@ export function NumberInput({
   className = '',
   onChange,
   value,
-  inputMode = 'numeric',
   ...props
 }: NumberInputProps) {
-  const [stringValue, setStringValue] = useState(String(value));
+  const [stringValue, setStringValue] = useState(
+    String(Math.round(value * 100) / 100)
+  );
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!/^\d*\.?\d{0,2}$/.test(e.target.value)) {
+      return;
+    }
+
     setStringValue(e.target.value);
-    onChange(Number(e.target.value), stringValue);
+    onChange(Number(e.target.value));
   };
 
   return (
@@ -44,7 +58,6 @@ export function NumberInput({
       value={stringValue}
       onChange={changeHandler}
       type="text"
-      inputMode={inputMode}
       {...props}
     />
   );
