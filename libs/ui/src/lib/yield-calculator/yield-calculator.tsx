@@ -6,6 +6,7 @@ import {
 } from '@calculadora-cafetera/utils';
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
+import NumberInput from '../number-input/number-input';
 
 /* eslint-disable-next-line */
 export interface YieldCalculatorProps {}
@@ -66,30 +67,27 @@ export function YieldCalculator(props: YieldCalculatorProps) {
     <StyledYieldCalculator>
       <Field>
         <Label htmlFor="ref-price">Precio de referencia</Label>
-        <input
+        <NumberInput
           id="ref-price"
           onChange={onRefPriceChange}
           value={refPrice}
-          type="number"
         />
       </Field>
       <Field>
         <Label htmlFor="sample-size">Tamaño de la muestra</Label>
-        <input
+        <NumberInput
           id="sample-size"
           onChange={onSampleSizeChange}
           value={sampleSize}
-          type="number"
         />
       </Field>
       <Field>
         <Label htmlFor="premium-grams">Café excelso</Label>
-        <input
+        <NumberInput
           id="premium-grams"
           onChange={onPremiumGramsChange}
           value={premiumGrams}
-          type="number"
-          step="0.01"
+          step={0.01}
         />
       </Field>
       <Field>
