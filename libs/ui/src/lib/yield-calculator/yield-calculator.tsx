@@ -4,7 +4,7 @@ import {
   getWeightBasedOnYieldFactor,
   getYieldFactor,
 } from '@calculadora-cafetera/utils';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import NumberInput from '../number-input/number-input';
 
@@ -19,7 +19,6 @@ const Field = styled.div`
   align-items: center;
 `;
 const Label = styled.label`
-  margin: 0 0 0.5em 0;
   font-size: 1.25rem;
 `;
 const StyledNumberInput = styled(NumberInput)`
@@ -41,9 +40,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
   const [sellPrice, setSellPrice] = useState(baseRefPrice);
   const [yieldFactor, setYieldFactor] = useState(baseYieldFactor);
 
-  const onRefPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const refPrice = Number(e.target.value);
-
+  const onRefPriceChange = (refPrice: number): void => {
     if (!yieldFactor) {
       setRefPrice(refPrice);
       return;
@@ -53,16 +50,12 @@ export function YieldCalculator(props: YieldCalculatorProps) {
     setSellPrice(getSellPrice(baseYieldFactor, yieldFactor, refPrice));
   };
 
-  const onSampleSizeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const sampleSize = Number(e.target.value);
-
+  const onSampleSizeChange = (sampleSize: number): void => {
     setYieldFactor(getYieldFactor(Number(premiumGrams), sampleSize));
     setSampleSize(sampleSize);
   };
 
-  const onPremiumGramsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const premiumGrams = Number(e.target.value);
-
+  const onPremiumGramsChange = (premiumGrams: number): void => {
     const yieldFactor = getYieldFactor(premiumGrams, sampleSize);
 
     setSellPrice(getSellPrice(baseYieldFactor, yieldFactor, refPrice));
