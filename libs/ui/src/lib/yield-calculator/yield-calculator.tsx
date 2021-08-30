@@ -14,6 +14,11 @@ const StyledYieldCalculator = styled.div``;
 const Field = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 2em 0;
+`;
+const Label = styled.label`
+  margin: 0 0 1em 0;
+  font-size: 1.5rem;
 `;
 
 export function YieldCalculator(props: YieldCalculatorProps) {
@@ -60,7 +65,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
   return (
     <StyledYieldCalculator>
       <Field>
-        <label htmlFor="ref-price">Precio de referencia</label>
+        <Label htmlFor="ref-price">Precio de referencia</Label>
         <input
           id="ref-price"
           onChange={onRefPriceChange}
@@ -69,18 +74,16 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         />
       </Field>
       <Field>
-        <label htmlFor="sample-size">Tamaño de la muestra en gramos</label>
+        <Label htmlFor="sample-size">Tamaño de la muestra</Label>
         <input
           id="sample-size"
           onChange={onSampleSizeChange}
           value={sampleSize}
           type="number"
-          max="250"
-          min="100"
         />
       </Field>
       <Field>
-        <label htmlFor="premium-grams">Gramos de cafe excelso resultante</label>
+        <Label htmlFor="premium-grams">Café excelso</Label>
         <input
           id="premium-grams"
           onChange={onPremiumGramsChange}
