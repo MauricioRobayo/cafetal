@@ -1,13 +1,14 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
 export interface NumberInputProps {
-  id: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  value: number;
-  step?: number;
   className?: string;
+  id: string;
+  onChange: (value: number, stringValue: string) => void;
+  precision: number;
+  step?: number;
+  value: number;
 }
 
 const StyledNumberInput = styled.input`
@@ -20,16 +21,24 @@ export function NumberInput({
   className,
   id,
   onChange,
-  value,
+  precision,
   step,
+  value,
 }: NumberInputProps) {
+  const [stringValue, setStringValue] = useState(value.toFixed(precision));
+
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setStringValue(e.target.value);
+    onChange(value, stringValue);
+  };
+
   return (
     <StyledNumberInput
       className={className}
       id={id}
-      value={value}
+      value={stringValue}
       step={step}
-      onChange={onChange}
+      onChange={changeHandler}
       type="number"
     />
   );
