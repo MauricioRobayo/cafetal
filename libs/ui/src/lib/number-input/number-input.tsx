@@ -1,18 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-function formatCurrency(number: number): string {
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currencyDisplay: 'narrowSymbol',
-    currency: 'COP',
-    maximumFractionDigits: 0,
-    minimumFractionDigits: 0,
-  });
-
-  return formatter.format(number);
-}
-
 type Modify<T, R> = Omit<T, keyof R> & R;
 type ModifiedInputProps = Modify<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -20,6 +8,7 @@ type ModifiedInputProps = Modify<
     className?: string;
     onChange: (value: number, stringValue: string) => void;
     value: number;
+    formatter: (number: number) => string;
   }
 >;
 export type NumberInputProps = Omit<ModifiedInputProps, 'type'>;
@@ -40,10 +29,11 @@ export function NumberInput({
   className = '',
   onChange,
   value,
+  formatter,
   ...props
 }: NumberInputProps) {
   const [realValue, setRealValue] = useState(value);
-  const [stringValue, setStringValue] = useState(formatCurrency(value));
+  const [stringValue, setStringValue] = useState(formatter(value));
   const [isEditing, setIsEditing] = useState(false);
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -53,7 +43,7 @@ export function NumberInput({
 
     const value = Number(e.target.value);
     setRealValue(value);
-    setStringValue(formatCurrency(value));
+    setStringValue(formatter(value));
     onChange(realValue, stringValue);
   }
 

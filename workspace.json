@@ -1,6 +1,27 @@
 {
   "version": 2,
   "projects": {
+    "formatter": {
+      "root": "libs/formatter",
+      "sourceRoot": "libs/formatter/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/formatter/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/formatter"],
+          "options": {
+            "jestConfig": "libs/formatter/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "ui": {
       "root": "libs/ui",
       "sourceRoot": "libs/ui/src",

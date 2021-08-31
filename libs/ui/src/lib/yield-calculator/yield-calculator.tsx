@@ -7,6 +7,7 @@ import {
 import { useState } from 'react';
 import styled from 'styled-components';
 import NumberInput from '../number-input/number-input';
+import { formatCurrency, formatUnit } from '@calculadora-cafetera/formatter';
 
 /* eslint-disable-next-line */
 export interface YieldCalculatorProps {}
@@ -71,6 +72,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           name="ref-price"
           onChange={onRefPriceChange}
           value={refPrice}
+          formatter={formatCurrency}
         />
       </Field>
       <Field>
@@ -79,6 +81,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           name="sample-size"
           onChange={onSampleSizeChange}
           value={sampleSize}
+          formatter={formatUnit}
         />
       </Field>
       <Field>
@@ -87,6 +90,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           name="premium-grams"
           onChange={onPremiumGramsChange}
           value={premiumGrams}
+          formatter={formatUnit}
         />
       </Field>
       <Field>
