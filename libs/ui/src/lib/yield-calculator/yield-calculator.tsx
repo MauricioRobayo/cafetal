@@ -78,6 +78,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       <Field>
         <Label htmlFor="sample-size">Tamaño de la muestra</Label>
         <StyledNumberInput
+          acceptDecimals
           name="sample-size"
           onChange={onSampleSizeChange}
           value={sampleSize}
@@ -87,6 +88,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       <Field>
         <Label htmlFor="premium-grams">Café excelso</Label>
         <StyledNumberInput
+          acceptDecimals
           name="premium-grams"
           onChange={onPremiumGramsChange}
           value={Math.round(premiumGrams * 100) / 100}

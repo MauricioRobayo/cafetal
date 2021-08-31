@@ -1,17 +1,14 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-type Modify<T, R> = Omit<T, keyof R> & R;
-type ModifiedInputProps = Modify<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  {
-    className?: string;
-    onChange: (value: number, stringValue: string) => void;
-    value: number;
-    formatter: (number: number) => string;
-  }
->;
-export type NumberInputProps = Omit<ModifiedInputProps, 'type'>;
+export interface NumberInputProps {
+  acceptDecimals?: boolean;
+  className?: string;
+  formatter: (number: number) => string;
+  name: string;
+  onChange: (value: number, stringValue: string) => void;
+  value: number;
+}
 
 const StyledNumberInput = styled.input`
   padding: 0.25em;
@@ -26,25 +23,30 @@ const StyledNumberInput = styled.input`
 `;
 
 export function NumberInput({
+  acceptDecimals = false,
   className = '',
+  formatter,
+  name,
   onChange,
   value,
-  formatter,
-  ...props
 }: NumberInputProps) {
-  const [realValue, setRealValue] = useState(value);
+  const [realValue, setRealValue] = useState(String(value));
   const [stringValue, setStringValue] = useState(formatter(value));
   const [isEditing, setIsEditing] = useState(false);
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
-    if (!/^\d*\.?\d{0,2}$/.test(e.target.value)) {
+    const validation = acceptDecimals ? /^\d*\.?\d{0,2}$/ : /^\d*$/;
+
+    if (!validation.test(e.target.value)) {
       return;
     }
 
     const value = Number(e.target.value);
-    setRealValue(value);
-    setStringValue(formatter(value));
-    onChange(realValue, stringValue);
+    const stringValue = formatter(Number(e.target.value));
+
+    setRealValue(e.target.value);
+    setStringValue(stringValue);
+    onChange(value, stringValue);
   }
 
   if (isEditing) {
@@ -55,8 +57,8 @@ export function NumberInput({
         onChange={changeHandler}
         onBlur={() => setIsEditing(false)}
         type="text"
-        inputMode="decimal"
-        {...props}
+        inputMode={acceptDecimals ? 'decimal' : 'numeric'}
+        name={name}
       />
     );
   }
