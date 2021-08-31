@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import { createComponentStoriesFile } from '@nrwl/react/src/generators/component-story/component-story';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 function formatCurrency(number: number): string {
@@ -25,7 +26,7 @@ type ModifiedInputProps = Modify<
   React.InputHTMLAttributes<HTMLInputElement>,
   {
     className?: string;
-    onChange: (value: number) => void;
+    onChange: (value: number, stringValue: string) => void;
     value: number;
   }
 >;
@@ -48,17 +49,45 @@ export function NumberInput({
   value,
   ...props
 }: NumberInputProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [stringValue, setStringValue] = useState(formatCurrency(value));
+  const [cursorPosition, setCursorPosition] = useState([0, 0]);
+
+  useEffect(() => {
+    const [cursorPositionStart, cursorPositionEnd] = cursorPosition;
+
+    const offset = [...stringValue]
+      .slice(0, cursorPositionEnd)
+      .filter((char) => char === ',').length;
+
+    inputRef.current?.setSelectionRange(
+      cursorPositionStart + offset,
+      cursorPositionEnd + offset
+    );
+  }, [stringValue, cursorPosition]);
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = parseCurrency(e.target.value);
+    const rawValue = e.target.value;
+    const cursorPositionStart = Number(inputRef.current?.selectionStart);
+    const cursorPositionEnd = Number(inputRef.current?.selectionEnd);
+    const offset = [...rawValue]
+      .slice(0, cursorPositionEnd)
+      .filter((char) => char === ',').length;
+
+    const value = parseCurrency(rawValue);
 
     if (value === null) {
       return;
     }
 
-    setStringValue(formatCurrency(value));
-    onChange(value);
+    setCursorPosition([
+      cursorPositionStart - offset,
+      cursorPositionEnd - offset,
+    ]);
+
+    const stringValue = formatCurrency(value);
+    setStringValue(stringValue);
+    onChange(value, stringValue);
   };
 
   return (
@@ -68,6 +97,7 @@ export function NumberInput({
       onChange={changeHandler}
       type="text"
       inputMode="decimal"
+      ref={inputRef}
       {...props}
     />
   );
