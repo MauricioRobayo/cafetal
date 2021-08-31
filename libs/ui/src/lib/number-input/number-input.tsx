@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 function formatCurrency(number: number): string {
   const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'COP',
-    currencyDisplay: 'narrowSymbol',
+    style: 'decimal',
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
   });
@@ -14,7 +12,7 @@ function formatCurrency(number: number): string {
 }
 
 function parseCurrency(number: string): number | null {
-  const value = Number(number.replace(/^\$/, '').replace(/,/g, ''));
+  const value = Number(number.replace(/,/g, ''));
   if (Number.isNaN(value)) {
     return null;
   }
@@ -53,18 +51,14 @@ export function NumberInput({
   const [stringValue, setStringValue] = useState(formatCurrency(value));
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log({ targetValue: e.target.value });
-
     const value = parseCurrency(e.target.value);
-
-    console.log({ value });
 
     if (value === null) {
       return;
     }
 
     setStringValue(formatCurrency(value));
-    onChange(Number(value));
+    onChange(value);
   };
 
   return (
