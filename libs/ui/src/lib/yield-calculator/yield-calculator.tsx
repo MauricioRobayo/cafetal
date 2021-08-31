@@ -11,6 +11,7 @@ import {
   BASE_YIELD_FACTOR,
   BASE_SAMPLE_SIZE,
 } from './constants';
+import { useImmerReducer } from 'use-immer';
 
 /* eslint-disable-next-line */
 export interface YieldCalculatorProps {}
@@ -35,7 +36,7 @@ const StyledNumberInput = styled(NumberInput)`
 export function YieldCalculator(props: YieldCalculatorProps) {
   const basePremiumGrams = getPremiumGramsBasedOnYieldFactor(BASE_YIELD_FACTOR);
 
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useImmerReducer(reducer, {
     refPrice: BASE_REF_PRICE,
     sampleSize: BASE_SAMPLE_SIZE,
     premiumGrams: basePremiumGrams,

@@ -20,37 +20,39 @@ interface Action {
   payload: number;
 }
 
-export default function reducer(state: State, action: Action): State {
+export default function reducer(draft: State, action: Action): void {
   switch (action.type) {
     case SET_REF_PRICE:
-      return {
-        ...state,
-        refPrice: action.payload,
-        sellPrice: getSellPrice(
-          BASE_YIELD_FACTOR,
-          state.yieldFactor,
-          action.payload
-        ),
-      };
+      draft.refPrice = action.payload;
+      draft.sellPrice = getSellPrice(
+        BASE_YIELD_FACTOR,
+        draft.yieldFactor,
+        action.payload
+      );
+      break;
     case SET_SAMPLE_SIZE: {
-      const yieldFactor = getYieldFactor(state.premiumGrams, action.payload);
-      return {
-        ...state,
-        yieldFactor: yieldFactor,
-        sellPrice: getSellPrice(BASE_YIELD_FACTOR, yieldFactor, state.refPrice),
-        sampleSize: action.payload,
-      };
+      const yieldFactor = getYieldFactor(draft.premiumGrams, action.payload);
+      draft.yieldFactor = yieldFactor;
+      draft.sellPrice = getSellPrice(
+        BASE_YIELD_FACTOR,
+        yieldFactor,
+        draft.refPrice
+      );
+      draft.sampleSize = action.payload;
+      break;
     }
     case SET_PREMIUM_GRAMS: {
-      const yieldFactor = getYieldFactor(action.payload, state.sampleSize);
-      return {
-        ...state,
-        sellPrice: getSellPrice(BASE_YIELD_FACTOR, yieldFactor, state.refPrice),
+      const yieldFactor = getYieldFactor(action.payload, draft.sampleSize);
+      draft.sellPrice = getSellPrice(
+        BASE_YIELD_FACTOR,
         yieldFactor,
-        premiumGrams: action.payload,
-      };
+        draft.refPrice
+      );
+      draft.yieldFactor = yieldFactor;
+      draft.premiumGrams = action.payload;
+      break;
     }
     default:
-      return state;
+      throw new Error();
   }
 }
