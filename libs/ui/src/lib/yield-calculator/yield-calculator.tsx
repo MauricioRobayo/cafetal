@@ -1,13 +1,19 @@
 // import YieldTable from '../yield-table/yield-table';
-import {
-  getSellPrice,
-  getWeightBasedOnYieldFactor,
-  getYieldFactor,
-} from '@calculadora-cafetera/utils';
-import { useState } from 'react';
+import { getPremiumGramsBasedOnYieldFactor } from '@calculadora-cafetera/utils';
+import { useReducer } from 'react';
 import styled from 'styled-components';
 import NumberInput from '../number-input/number-input';
 import { formatCurrency, formatUnit } from '@calculadora-cafetera/formatter';
+import reducer, {
+  SET_PREMIUM_GRAMS,
+  SET_REF_PRICE,
+  SET_SAMPLE_SIZE,
+} from './reducer';
+import {
+  BASE_REF_PRICE,
+  BASE_YIELD_FACTOR,
+  BASE_SAMPLE_SIZE,
+} from './constants';
 
 /* eslint-disable-next-line */
 export interface YieldCalculatorProps {}
@@ -30,39 +36,15 @@ const StyledNumberInput = styled(NumberInput)`
 `;
 
 export function YieldCalculator(props: YieldCalculatorProps) {
-  const baseYieldFactor = 94;
-  const baseRefPrice = 1500000;
-  const baseSampleSize = 250;
-  const basePremiumGrams = getWeightBasedOnYieldFactor(baseYieldFactor);
+  const basePremiumGrams = getPremiumGramsBasedOnYieldFactor(BASE_YIELD_FACTOR);
 
-  const [refPrice, setRefPrice] = useState(baseRefPrice);
-  const [sampleSize, setSampleSize] = useState(baseSampleSize);
-  const [premiumGrams, setPremiumGrams] = useState(basePremiumGrams);
-  const [sellPrice, setSellPrice] = useState(baseRefPrice);
-  const [yieldFactor, setYieldFactor] = useState(baseYieldFactor);
-
-  const onRefPriceChange = (refPrice: number): void => {
-    if (!yieldFactor) {
-      setRefPrice(refPrice);
-      return;
-    }
-
-    setRefPrice(refPrice);
-    setSellPrice(getSellPrice(baseYieldFactor, yieldFactor, refPrice));
-  };
-
-  const onSampleSizeChange = (sampleSize: number): void => {
-    setYieldFactor(getYieldFactor(Number(premiumGrams), sampleSize));
-    setSampleSize(sampleSize);
-  };
-
-  const onPremiumGramsChange = (premiumGrams: number): void => {
-    const yieldFactor = getYieldFactor(premiumGrams, sampleSize);
-
-    setSellPrice(getSellPrice(baseYieldFactor, yieldFactor, refPrice));
-    setYieldFactor(yieldFactor);
-    setPremiumGrams(premiumGrams);
-  };
+  const [state, dispatch] = useReducer(reducer, {
+    refPrice: BASE_REF_PRICE,
+    sampleSize: BASE_SAMPLE_SIZE,
+    premiumGrams: basePremiumGrams,
+    sellPrice: BASE_REF_PRICE,
+    yieldFactor: BASE_YIELD_FACTOR,
+  });
 
   return (
     <StyledYieldCalculator>
@@ -73,8 +55,10 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           max={99_999_999}
           min={0}
           name="ref-price"
-          onChange={onRefPriceChange}
-          value={refPrice}
+          onChange={(value) =>
+            dispatch({ type: SET_REF_PRICE, payload: value })
+          }
+          value={state.refPrice}
         />
       </Field>
       <Field>
@@ -85,8 +69,10 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           max={1000}
           min={0}
           name="sample-size"
-          onChange={onSampleSizeChange}
-          value={sampleSize}
+          onChange={(value) =>
+            dispatch({ type: SET_SAMPLE_SIZE, payload: value })
+          }
+          value={state.sampleSize}
         />
       </Field>
       <Field>
@@ -94,20 +80,22 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         <StyledNumberInput
           acceptDecimals
           name="premium-grams"
-          onChange={onPremiumGramsChange}
-          value={Math.round(premiumGrams * 100) / 100}
+          onChange={(value) =>
+            dispatch({ type: SET_PREMIUM_GRAMS, payload: value })
+          }
+          value={Math.round(state.premiumGrams * 100) / 100}
           formatter={formatUnit}
-          max={100}
+          max={1000}
           min={0}
         />
       </Field>
       <Field>
         <div>Factor de rendimiento</div>
-        <div>{yieldFactor.toFixed(2)}</div>
+        <div>{state.yieldFactor.toFixed(2)}</div>
       </Field>
       <Field>
         <div>Precio de compra</div>
-        <div>{formatCurrency(sellPrice)}</div>
+        <div>{formatCurrency(state.sellPrice)}</div>
       </Field>
       {/* <YieldTable
         min={89}

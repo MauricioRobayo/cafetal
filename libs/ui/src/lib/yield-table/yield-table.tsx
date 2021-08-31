@@ -1,6 +1,6 @@
 import {
   getSellPrice,
-  getWeightBasedOnYieldFactor,
+  getPremiumGramsBasedOnYieldFactor,
 } from '@calculadora-cafetera/utils';
 import color from 'color';
 import styled, { css } from 'styled-components';
@@ -89,7 +89,7 @@ export function YieldTable({
           }
           const backgroundColor = color(hsl);
 
-          const weight = getWeightBasedOnYieldFactor(point, sampleSize);
+          const weight = getPremiumGramsBasedOnYieldFactor(point, sampleSize);
 
           const offset =
             value && point === Math.trunc(value) ? (value - point) * 100 : null;

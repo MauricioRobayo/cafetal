@@ -1,10 +1,10 @@
 const coffeeBagWeightKg = 70;
 
-export function getYieldFactor(weight: number, sampleSize = 250): number {
-  return (sampleSize * coffeeBagWeightKg) / weight;
+export function getYieldFactor(premiumGrams: number, sampleSize = 250): number {
+  return (sampleSize * coffeeBagWeightKg) / premiumGrams;
 }
 
-export function getWeightBasedOnYieldFactor(
+export function getPremiumGramsBasedOnYieldFactor(
   yieldFactor: number,
   sampleSize = 250
 ): number {
