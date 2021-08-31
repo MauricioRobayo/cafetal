@@ -28,6 +28,7 @@ const StyledNumberInput = styled.input`
   padding: 0.25em;
   border: 1px solid transparent;
   border-bottom: 2px solid ${({ theme }) => theme.color.brand};
+  line-height: normal;
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.color.brand};
