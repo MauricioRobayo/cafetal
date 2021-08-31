@@ -1,17 +1,16 @@
 // import YieldTable from '../yield-table/yield-table';
-import { getPremiumGramsBasedOnYieldFactor } from '@calculadora-cafetera/utils';
-import { useReducer } from 'react';
-import styled from 'styled-components';
-import NumberInput from '../number-input/number-input';
 import { formatCurrency, formatUnit } from '@calculadora-cafetera/formatter';
-import reducer from './reducer';
-import { SET_PREMIUM_GRAMS, SET_REF_PRICE, SET_SAMPLE_SIZE } from './actions';
+import { getPremiumGramsBasedOnYieldFactor } from '@calculadora-cafetera/utils';
+import styled from 'styled-components';
+import { useImmerReducer } from 'use-immer';
+import NumberInput from '../number-input/number-input';
+import { setPremiumGrams, setRefPrice, setSamplePrice } from './actions';
 import {
   BASE_REF_PRICE,
-  BASE_YIELD_FACTOR,
   BASE_SAMPLE_SIZE,
+  BASE_YIELD_FACTOR,
 } from './constants';
-import { useImmerReducer } from 'use-immer';
+import reducer from './reducer';
 
 /* eslint-disable-next-line */
 export interface YieldCalculatorProps {}
@@ -53,9 +52,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           max={99_999_999}
           min={0}
           name="ref-price"
-          onChange={(value) =>
-            dispatch({ type: SET_REF_PRICE, payload: value })
-          }
+          onChange={(value) => dispatch(setRefPrice(value))}
           value={state.refPrice}
         />
       </Field>
@@ -67,9 +64,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           max={1000}
           min={0}
           name="sample-size"
-          onChange={(value) =>
-            dispatch({ type: SET_SAMPLE_SIZE, payload: value })
-          }
+          onChange={(value) => dispatch(setSamplePrice(value))}
           value={state.sampleSize}
         />
       </Field>
@@ -78,9 +73,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         <StyledNumberInput
           acceptDecimals
           name="premium-grams"
-          onChange={(value) =>
-            dispatch({ type: SET_PREMIUM_GRAMS, payload: value })
-          }
+          onChange={(value) => dispatch(setPremiumGrams(value))}
           value={Math.round(state.premiumGrams * 100) / 100}
           formatter={formatUnit}
           max={1000}
