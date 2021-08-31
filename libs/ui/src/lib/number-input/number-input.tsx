@@ -46,14 +46,14 @@ export function NumberInput({
   const [isEditing, setIsEditing] = useState(false);
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
+    if (!/^\d*\.?\d{0,2}$/.test(e.target.value)) {
+      return;
+    }
+
     const value = Number(e.target.value);
     setRealValue(value);
     setStringValue(formatCurrency(value));
     onChange(realValue, stringValue);
-  }
-
-  function onStringValueFocus() {
-    setIsEditing(true);
   }
 
   if (isEditing) {
@@ -65,6 +65,7 @@ export function NumberInput({
         onBlur={() => setIsEditing(false)}
         type="text"
         inputMode="decimal"
+        {...props}
       />
     );
   }
@@ -74,9 +75,8 @@ export function NumberInput({
       className={className}
       value={stringValue}
       type="text"
-      onFocus={onStringValueFocus}
+      onFocus={() => setIsEditing(true)}
       readOnly
-      {...props}
     />
   );
 }
