@@ -1,14 +1,25 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-function formatCurrency(number: number, showDecimals: boolean): string {
+function formatCurrency(number: number): string {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'COP',
-    maximumFractionDigits: showDecimals ? 2 : 0,
+    currencyDisplay: 'narrowSymbol',
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
   });
 
   return formatter.format(number);
+}
+
+function parseCurrency(number: string): number | null {
+  const value = Number(number.replace(/^\$/, '').replace(/,/g, ''));
+  if (Number.isNaN(value)) {
+    return null;
+  }
+
+  return value;
 }
 
 type Modify<T, R> = Omit<T, keyof R> & R;
@@ -39,17 +50,21 @@ export function NumberInput({
   value,
   ...props
 }: NumberInputProps) {
-  const [stringValue, setStringValue] = useState(
-    String(Math.round(value * 100) / 100)
-  );
+  const [stringValue, setStringValue] = useState(formatCurrency(value));
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!/^\d*\.?\d{0,2}$/.test(e.target.value)) {
+    console.log({ targetValue: e.target.value });
+
+    const value = parseCurrency(e.target.value);
+
+    console.log({ value });
+
+    if (value === null) {
       return;
     }
 
-    setStringValue(e.target.value);
-    onChange(Number(e.target.value));
+    setStringValue(formatCurrency(value));
+    onChange(Number(value));
   };
 
   return (
@@ -58,6 +73,7 @@ export function NumberInput({
       value={stringValue}
       onChange={changeHandler}
       type="text"
+      inputMode="decimal"
       {...props}
     />
   );
