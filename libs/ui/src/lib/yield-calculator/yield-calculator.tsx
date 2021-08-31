@@ -4,11 +4,8 @@ import { useReducer } from 'react';
 import styled from 'styled-components';
 import NumberInput from '../number-input/number-input';
 import { formatCurrency, formatUnit } from '@calculadora-cafetera/formatter';
-import reducer, {
-  SET_PREMIUM_GRAMS,
-  SET_REF_PRICE,
-  SET_SAMPLE_SIZE,
-} from './reducer';
+import reducer from './reducer';
+import { SET_PREMIUM_GRAMS, SET_REF_PRICE, SET_SAMPLE_SIZE } from './actions';
 import {
   BASE_REF_PRICE,
   BASE_YIELD_FACTOR,

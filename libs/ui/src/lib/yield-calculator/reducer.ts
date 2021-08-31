@@ -1,4 +1,5 @@
 import { getSellPrice, getYieldFactor } from '@calculadora-cafetera/utils';
+import { SET_PREMIUM_GRAMS, SET_REF_PRICE, SET_SAMPLE_SIZE } from './actions';
 import { BASE_YIELD_FACTOR } from './constants';
 
 interface State {
@@ -8,10 +9,6 @@ interface State {
   sellPrice: number;
   yieldFactor: number;
 }
-
-export const SET_REF_PRICE = 'SET_REF_PRICE';
-export const SET_SAMPLE_SIZE = 'SET_SAMPLE_SIZE';
-export const SET_PREMIUM_GRAMS = 'SET_PREMIUM_GRAMS';
 
 interface Action {
   type:

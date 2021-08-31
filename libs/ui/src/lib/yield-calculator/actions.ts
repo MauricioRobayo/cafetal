@@ -1,0 +1,3 @@
+export const SET_REF_PRICE = 'SET_REF_PRICE';
+export const SET_SAMPLE_SIZE = 'SET_SAMPLE_SIZE';
+export const SET_PREMIUM_GRAMS = 'SET_PREMIUM_GRAMS';
