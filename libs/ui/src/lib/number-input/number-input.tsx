@@ -5,6 +5,8 @@ export interface NumberInputProps {
   acceptDecimals?: boolean;
   className?: string;
   formatter: (number: number) => string;
+  max?: number;
+  min?: number;
   name: string;
   onChange: (value: number, stringValue: string) => void;
   value: number;
@@ -26,6 +28,8 @@ export function NumberInput({
   acceptDecimals = false,
   className = '',
   formatter,
+  max,
+  min,
   name,
   onChange,
   value,
@@ -42,6 +46,11 @@ export function NumberInput({
     }
 
     const value = Number(e.target.value);
+
+    if (value > max || value < min) {
+      return;
+    }
+
     const stringValue = formatter(Number(e.target.value));
 
     setRealValue(e.target.value);

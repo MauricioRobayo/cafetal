@@ -69,20 +69,24 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       <Field>
         <Label htmlFor="ref-price">Precio de referencia</Label>
         <StyledNumberInput
+          formatter={formatCurrency}
+          max={99_999_999}
+          min={0}
           name="ref-price"
           onChange={onRefPriceChange}
           value={refPrice}
-          formatter={formatCurrency}
         />
       </Field>
       <Field>
         <Label htmlFor="sample-size">Tamaño de la muestra</Label>
         <StyledNumberInput
           acceptDecimals
+          formatter={formatUnit}
+          max={1000}
+          min={0}
           name="sample-size"
           onChange={onSampleSizeChange}
           value={sampleSize}
-          formatter={formatUnit}
         />
       </Field>
       <Field>
@@ -93,6 +97,8 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           onChange={onPremiumGramsChange}
           value={Math.round(premiumGrams * 100) / 100}
           formatter={formatUnit}
+          max={100}
+          min={0}
         />
       </Field>
       <Field>
