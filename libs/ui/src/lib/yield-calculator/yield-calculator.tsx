@@ -34,7 +34,6 @@ const StyledNumberInput = styled(NumberInput)`
 
 export function YieldCalculator(props: YieldCalculatorProps) {
   const basePremiumGrams = getPremiumGramsBasedOnYieldFactor(BASE_YIELD_FACTOR);
-
   const [state, dispatch] = useImmerReducer(reducer, {
     refPrice: BASE_REF_PRICE,
     sampleSize: BASE_SAMPLE_SIZE,
@@ -42,6 +41,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
     sellPrice: BASE_REF_PRICE,
     yieldFactor: BASE_YIELD_FACTOR,
   });
+  const { sampleSize, refPrice, sellPrice, premiumGrams, yieldFactor } = state;
 
   return (
     <StyledYieldCalculator>
@@ -53,7 +53,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           min={0}
           name="ref-price"
           onChange={(value) => dispatch(setRefPrice(value))}
-          value={state.refPrice}
+          value={refPrice}
         />
       </Field>
       <Field>
@@ -65,7 +65,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           min={0}
           name="sample-size"
           onChange={(value) => dispatch(setSamplePrice(value))}
-          value={state.sampleSize}
+          value={sampleSize}
         />
       </Field>
       <Field>
@@ -74,19 +74,19 @@ export function YieldCalculator(props: YieldCalculatorProps) {
           acceptDecimals
           name="premium-grams"
           onChange={(value) => dispatch(setPremiumGrams(value))}
-          value={Math.round(state.premiumGrams * 100) / 100}
+          value={Math.round(premiumGrams * 100) / 100}
           formatter={formatUnit}
-          max={1000}
+          max={sampleSize}
           min={0}
         />
       </Field>
       <Field>
         <div>Factor de rendimiento</div>
-        <div>{state.yieldFactor.toFixed(2)}</div>
+        <div>{yieldFactor.toFixed(2)}</div>
       </Field>
       <Field>
         <div>Precio de compra</div>
-        <div>{formatCurrency(state.sellPrice)}</div>
+        <div>{formatCurrency(sellPrice)}</div>
       </Field>
       {/* <YieldTable
         min={89}
