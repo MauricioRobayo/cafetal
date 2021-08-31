@@ -89,7 +89,7 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         <StyledNumberInput
           name="premium-grams"
           onChange={onPremiumGramsChange}
-          value={premiumGrams}
+          value={Math.round(premiumGrams * 100) / 100}
           formatter={formatUnit}
         />
       </Field>
