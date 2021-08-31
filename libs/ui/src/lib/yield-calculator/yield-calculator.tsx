@@ -103,11 +103,11 @@ export function YieldCalculator(props: YieldCalculatorProps) {
       </Field>
       <Field>
         <div>Factor de rendimiento</div>
-        <div> {yieldFactor}</div>
+        <div>{yieldFactor.toFixed(2)}</div>
       </Field>
       <Field>
         <div>Precio de compra</div>
-        <div>{sellPrice}</div>
+        <div>{formatCurrency(sellPrice)}</div>
       </Field>
       {/* <YieldTable
         min={89}
