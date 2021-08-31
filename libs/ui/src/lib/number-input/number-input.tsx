@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
 type Modify<T, R> = Omit<T, keyof R> & R;
