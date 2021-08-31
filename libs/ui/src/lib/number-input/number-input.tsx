@@ -78,6 +78,7 @@ export function NumberInput({
       value={stringValue}
       type="text"
       onFocus={() => setIsEditing(true)}
+      name={name}
       readOnly
     />
   );

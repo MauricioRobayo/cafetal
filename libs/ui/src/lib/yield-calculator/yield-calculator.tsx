@@ -31,6 +31,14 @@ const StyledNumberInput = styled(NumberInput)`
   width: 100%;
   font-size: 1.75rem;
 `;
+const ResultTitle = styled.h4`
+  font-size: 1.25rem;
+  font-weight: normal;
+`;
+const Result = styled.div`
+  font-size: 1.75rem;
+  font-weight: bold;
+`;
 
 export function YieldCalculator(props: YieldCalculatorProps) {
   const basePremiumGrams = getPremiumGramsBasedOnYieldFactor(BASE_YIELD_FACTOR);
@@ -81,12 +89,12 @@ export function YieldCalculator(props: YieldCalculatorProps) {
         />
       </Field>
       <Field>
-        <div>Factor de rendimiento</div>
-        <div>{yieldFactor.toFixed(2)}</div>
+        <ResultTitle>Factor de rendimiento</ResultTitle>
+        <Result>{yieldFactor.toFixed(2)}</Result>
       </Field>
       <Field>
-        <div>Precio de compra</div>
-        <div>{formatCurrency(sellPrice)}</div>
+        <ResultTitle>Precio de compra</ResultTitle>
+        <Result>{formatCurrency(sellPrice)}</Result>
       </Field>
       {/* <YieldTable
         min={89}
