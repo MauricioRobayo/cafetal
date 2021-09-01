@@ -34,9 +34,10 @@ const StyledNumberInput = styled(NumberInput)`
 const ResultTitle = styled.h4`
   font-size: 1.25rem;
   font-weight: normal;
-  margin: 0.5em;
+  margin: 0;
 `;
 const Result = styled.div`
+  margin: 0.25em 0;
   font-size: 1.75rem;
   font-weight: bold;
 `;
