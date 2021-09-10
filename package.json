@@ -31,6 +31,7 @@
   "devDependencies": {
     "@nrwl/cli": "12.8.0",
     "@nrwl/cypress": "12.8.0",
+    "@nrwl/devkit": "12.8.0",
     "@nrwl/eslint-plugin-nx": "12.8.0",
     "@nrwl/jest": "12.8.0",
     "@nrwl/linter": "12.8.0",
