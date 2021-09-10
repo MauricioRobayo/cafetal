@@ -20,6 +20,10 @@
     "image": {
       "type": "string",
       "description": "An image to show at the top of the article"
+    },
+    "source": {
+      "type": "string",
+      "description": "The original source where the article was taken"
     }
   },
   "required": ["title"]
