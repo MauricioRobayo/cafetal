@@ -5,6 +5,7 @@ import {
   names,
   Tree,
 } from '@nrwl/devkit';
+import slugify from 'slugify';
 
 interface NewArticleSchemaOptions {
   title: string;
@@ -27,7 +28,7 @@ export default async function (host: Tree, schema: NewArticleSchemaOptions) {
     {
       title: schema.title,
       excerpt: schema.excerpt || '',
-      normalizedTitle: names(schema.title).fileName,
+      slug: slugify(names(schema.title).fileName, { lower: true }),
       image: schema.image || '',
       creationDate: new Date().toISOString(),
     }
