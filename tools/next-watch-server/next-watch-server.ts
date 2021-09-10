@@ -18,8 +18,6 @@ export default async function nextWatchServer(
 
   const articlesPath = settings.conf.env.articlesPath;
 
-  console.log({ articlesPath });
-
   // watch folders if specified
   if (articlesPath) {
     chokidar
