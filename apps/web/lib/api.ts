@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import { join } from 'path';
 import matter from 'gray-matter';
 
@@ -14,14 +14,14 @@ type Items = {
   [key: string]: string;
 };
 
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory);
+export async function getPostSlugs() {
+  return await fs.readdir(postsDirectory);
 }
 
-export function getPostBySlug(slug: string, fields: string[] = []) {
+export async function getPostBySlug(slug: string, fields: string[] = []) {
   const realSlug = slug.replace(/\.mdx$/, '');
   const fullPath = join(postsDirectory, `${realSlug}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = await fs.readFile(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
   const items: Items = {};
@@ -32,10 +32,6 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
       items[field] = content;
     }
 
-    if (field === 'slug') {
-      items[field] = data[field];
-    }
-
     if (data[field]) {
       items[field] = data[field];
     }
@@ -44,13 +40,14 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
   return items;
 }
 
-export function getAllPosts(fields: string[] = []) {
-  const slugs = getPostSlugs();
+export async function getAllPosts(fields: string[] = []) {
+  const slugs = await getPostSlugs();
 
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug, fields))
-    .sort(sortByDateDesc);
-  return posts;
+  const posts = await Promise.all(
+    slugs.map((slug) => getPostBySlug(slug, fields))
+  );
+
+  return posts.sort(sortByDateDesc);
 }
 
 export function sortByDateDesc(a: Items, b: Items) {
