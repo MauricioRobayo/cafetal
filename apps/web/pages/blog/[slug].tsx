@@ -10,6 +10,7 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { ReactElement } from 'react';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
+import Head from 'next/head';
 
 interface PostProps {
   post: Omit<BlogPost, 'content'> & {
@@ -19,10 +20,20 @@ interface PostProps {
 
 export default function Post({ post }: PostProps) {
   return (
-    <article>
-      <h1>{post.title}</h1>
-      <MDXRemote {...post.content} />
-    </article>
+    <>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+          integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+          crossOrigin="anonymous"
+        />
+      </Head>
+      <article>
+        <h1>{post.title}</h1>
+        <MDXRemote {...post.content} />
+      </article>
+    </>
   );
 }
 
