@@ -3,7 +3,7 @@ import {
   getPostBySlug,
   getPostSlugs,
 } from '@calculadora-cafetera/posts';
-import { PostLayout } from '@calculadora-cafetera/ui';
+import { PostLayout } from '@calculadora-cafetera/components';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
