@@ -1,4 +1,8 @@
-import { getPostBySlug, getPostSlugs } from '@calculadora-cafetera/posts';
+import {
+  BlogPost,
+  getPostBySlug,
+  getPostSlugs,
+} from '@calculadora-cafetera/posts';
 import { PostLayout } from '@calculadora-cafetera/ui';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -8,17 +12,17 @@ import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 
 interface PostProps {
-  post: {
+  post: Omit<BlogPost, 'content'> & {
     content: MDXRemoteSerializeResult<Record<string, unknown>>;
   };
 }
 
 export default function Post({ post }: PostProps) {
   return (
-    <div>
-      {' '}
+    <article>
+      <h1>{post.title}</h1>
       <MDXRemote {...post.content} />
-    </div>
+    </article>
   );
 }
 
