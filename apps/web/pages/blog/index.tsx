@@ -3,25 +3,23 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
 export const getStaticProps: GetStaticProps = async () => {
-  const articles = await getAllPosts(['title', 'slug', 'excerpt']);
+  const posts = await getAllPosts(['title', 'slug', 'excerpt']);
 
   return {
-    props: { articles },
+    props: { posts },
   };
 };
 
 interface BlogProps {
-  articles: BlogPost[];
+  posts: BlogPost[];
 }
-export default function Blog({ articles }: BlogProps) {
-  console.log({ articles });
-
+export default function Blog({ posts }: BlogProps) {
   return (
     <div>
       <h1>Blog</h1>
       <main>
         <ul>
-          {articles.map((post) => (
+          {posts.map((post) => (
             <li key={post.slug}>
               <Link href={`/blog/${post.slug}`}>
                 <a>{post.title}</a>

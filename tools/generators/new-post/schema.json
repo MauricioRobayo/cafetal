@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "$id": "new-article",
+  "$id": "new-post",
   "type": "object",
   "properties": {
     "title": {
@@ -11,7 +11,7 @@
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What's the title of your new article?"
+      "x-prompt": "What's the title of your new post?"
     },
     "excerpt": {
       "type": "string",
@@ -19,7 +19,7 @@
     },
     "image": {
       "type": "string",
-      "description": "An image to show at the top of the article"
+      "description": "An image to show at the top of the post"
     }
   },
   "required": ["title"]

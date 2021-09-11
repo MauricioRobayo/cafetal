@@ -11,13 +11,13 @@ export interface BlogPost {
   image?: string;
 }
 
-const articlesPath = process.env.articlesPath;
+const postsPath = process.env.postsPath;
 
-if (!articlesPath) {
-  throw new Error('Could not load `articlesPath` environment variable');
+if (!postsPath) {
+  throw new Error('Could not load `postsPath` environment variable');
 }
 
-const postsDirectory = join(process.cwd(), articlesPath);
+const postsDirectory = join(process.cwd(), postsPath);
 
 export async function getPostSlugs() {
   const fileNames = await fs.readdir(postsDirectory);

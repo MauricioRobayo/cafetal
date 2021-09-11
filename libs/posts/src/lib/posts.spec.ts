@@ -1,6 +1,6 @@
 import { getAllPosts } from './posts';
 
-describe('mdx', () => {
+describe('posts', () => {
   it('should work', () => {
     expect(getAllPosts()).toEqual('mdx');
   });

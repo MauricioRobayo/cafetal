@@ -7,13 +7,13 @@ import {
 } from '@nrwl/devkit';
 import slugify from 'slugify';
 
-interface NewArticleSchemaOptions {
+interface NewPostsSchemaOptions {
   title: string;
   excerpt?: string;
   image?: string;
 }
 
-export default async function (host: Tree, schema: NewArticleSchemaOptions) {
+export default async function (host: Tree, schema: NewPostsSchemaOptions) {
   generateFiles(
     // virtual file system
     host,
@@ -22,7 +22,7 @@ export default async function (host: Tree, schema: NewArticleSchemaOptions) {
     joinPathFragments(__dirname, './files'),
 
     // where the files should be generated
-    './articles',
+    './posts',
 
     // the variables to be substituted in the template
     {
