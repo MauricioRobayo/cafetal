@@ -1,16 +1,35 @@
-import { BlogPost, getAllPosts } from '../../lib/api';
+import { BlogPost, getAllPosts } from '@calculadora-cafetera/articles';
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPosts = await getAllPosts(['slug', 'excerpt']);
+  const articles = await getAllPosts(['title', 'slug', 'excerpt']);
 
   return {
-    props: { allPosts },
+    props: { articles },
   };
 };
 
-export default function Blog({ allPosts }: { allPosts: BlogPost[] }) {
-  console.log({ allPosts });
+interface BlogProps {
+  articles: BlogPost[];
+}
+export default function Blog({ articles }: BlogProps) {
+  console.log({ articles });
 
-  return <div>Blog</div>;
+  return (
+    <div>
+      <h1>Blog</h1>
+      <main>
+        <ul>
+          {articles.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/blog/${post.slug}`}>
+                <a>{post.title}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </main>
+    </div>
+  );
 }

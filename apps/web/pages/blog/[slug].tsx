@@ -1,4 +1,4 @@
-import { getPostBySlug, getPostSlugs } from '../../lib/api';
+import { getPostBySlug, getPostSlugs } from '@calculadora-cafetera/articles';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import remarkMath from 'remark-math';
@@ -11,7 +11,7 @@ interface PostProps {
   };
 }
 
-export function Post({ post }: PostProps) {
+export default function Post({ post }: PostProps) {
   return (
     <div>
       {' '}
@@ -22,8 +22,10 @@ export function Post({ post }: PostProps) {
 
 export async function getStaticProps({
   params,
-}: GetStaticPropsContext): Promise<GetStaticPropsResult<PostProps>> {
-  if (!params?.slug || typeof params.slug !== 'string') {
+}: GetStaticPropsContext<{ slug: string }>): Promise<
+  GetStaticPropsResult<PostProps>
+> {
+  if (!params) {
     return {
       notFound: true,
     };
