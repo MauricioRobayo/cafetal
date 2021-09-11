@@ -56,7 +56,8 @@ export async function getAllPosts(fields: (keyof BlogPost)[] = []) {
 
   const posts = await Promise.all(
     slugs.map(async (slug) => {
-      const post = getPostBySlug(slug, fields);
+      const post = await getPostBySlug(slug, fields);
+
       return {
         ...post,
         slug,
