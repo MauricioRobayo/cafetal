@@ -1,16 +1,17 @@
-import { getAllPosts, getPostBySlug } from '../../lib/api';
+import { getPostBySlug, getPostSlugs } from '../../lib/api';
 import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 
-type Params = {
-  params: {
-    slug: string;
+interface PostProps {
+  post: {
+    content: MDXRemoteSerializeResult<Record<string, unknown>>;
   };
-};
+}
 
-export default function Post({ post }: any) {
+export function Post({ post }: PostProps) {
   return (
     <div>
       {' '}
@@ -19,7 +20,15 @@ export default function Post({ post }: any) {
   );
 }
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps({
+  params,
+}: GetStaticPropsContext): Promise<GetStaticPropsResult<PostProps>> {
+  if (!params?.slug || typeof params.slug !== 'string') {
+    return {
+      notFound: true,
+    };
+  }
+
   const post = await getPostBySlug(params.slug, [
     'title',
     'date',
@@ -44,13 +53,13 @@ export async function getStaticProps({ params }: Params) {
 }
 
 export async function getStaticPaths() {
-  const posts = await getAllPosts(['slug']);
+  const slugs = await getPostSlugs();
 
   return {
-    paths: posts.map((post) => {
+    paths: slugs.map((slug) => {
       return {
         params: {
-          slug: post.slug,
+          slug,
         },
       };
     }),

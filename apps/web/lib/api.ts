@@ -2,6 +2,14 @@ import fs from 'fs/promises';
 import { join } from 'path';
 import matter from 'gray-matter';
 
+export interface BlogPost {
+  title: string;
+  date: string;
+  content: string;
+  excerpt?: string;
+  image?: string;
+}
+
 const articlesPath = process.env.articlesPath;
 
 if (!articlesPath) {
@@ -10,37 +18,35 @@ if (!articlesPath) {
 
 const postsDirectory = join(process.cwd(), articlesPath);
 
-type Items = {
-  [key: string]: string;
-};
-
 export async function getPostSlugs() {
-  return await fs.readdir(postsDirectory);
+  const fileNames = await fs.readdir(postsDirectory);
+  return fileNames.map((fileName) => fileName.replace(/\.mdx$/, ''));
 }
 
-export async function getPostBySlug(slug: string, fields: string[] = []) {
-  const realSlug = slug.replace(/\.mdx$/, '');
-  const fullPath = join(postsDirectory, `${realSlug}.mdx`);
+export async function getPostBySlug(
+  slug: string,
+  fields: (keyof BlogPost)[] = []
+): Promise<BlogPost> {
+  const fullPath = join(postsDirectory, `${slug}.mdx`);
   const fileContents = await fs.readFile(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
-  const items: Items = {};
+  const post: BlogPost = {
+    content,
+    title: data.title,
+    date: data.date,
+  };
 
-  // Ensure only the minimal needed data is exposed
-  fields.forEach((field) => {
-    if (field === 'content') {
-      items[field] = content;
-    }
-
+  for (const field of fields) {
     if (data[field]) {
-      items[field] = data[field];
+      post[field] = data[field];
     }
-  });
+  }
 
-  return items;
+  return post;
 }
 
-export async function getAllPosts(fields: string[] = []) {
+export async function getAllPosts(fields: (keyof BlogPost)[] = []) {
   const slugs = await getPostSlugs();
 
   const posts = await Promise.all(
@@ -50,6 +56,6 @@ export async function getAllPosts(fields: string[] = []) {
   return posts.sort(sortByDateDesc);
 }
 
-export function sortByDateDesc(a: Items, b: Items) {
+export function sortByDateDesc(a: BlogPost, b: BlogPost) {
   return a.date > b.date ? -1 : 1;
 }
