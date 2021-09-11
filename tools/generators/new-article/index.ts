@@ -11,7 +11,6 @@ interface NewArticleSchemaOptions {
   title: string;
   excerpt?: string;
   image?: string;
-  source?: string;
 }
 
 export default async function (host: Tree, schema: NewArticleSchemaOptions) {
@@ -32,7 +31,6 @@ export default async function (host: Tree, schema: NewArticleSchemaOptions) {
       slug: slugify(names(schema.title).fileName, { lower: true }),
       image: schema.image || '',
       creationDate: new Date().toISOString(),
-      source: schema.source || '',
     }
   );
 
