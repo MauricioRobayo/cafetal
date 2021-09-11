@@ -12,8 +12,8 @@ export const defaultTheme: DefaultTheme = {
   maxWidth: '768px',
   font: {
     brand: "'Milonga', cursive",
-    text1: "'Lora', serif",
-    text2: "'Open Sans', sans-serif",
+    text1: "'Open Sans', sans-serif",
+    text2: "'Lora', serif",
   },
   colors: {
     brand: brandColor.string(),

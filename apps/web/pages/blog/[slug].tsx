@@ -5,7 +5,6 @@ import {
 } from '@calculadora-cafetera/posts';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
-import { ReactElement } from 'react';
 import Head from 'next/head';
 
 interface PostProps {
