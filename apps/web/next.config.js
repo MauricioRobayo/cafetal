@@ -13,6 +13,9 @@ const nextConfig = {
   env: {
     articlesPath: 'articles',
   },
+  experimental: {
+    esmExternals: 'loose',
+  },
 };
 
 module.exports = withNx(nextConfig);

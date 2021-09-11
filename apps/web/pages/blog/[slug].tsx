@@ -1,7 +1,8 @@
 import { getAllPosts, getPostBySlug } from '../../lib/api';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
-import TestComponent from '../../components/TestComponent';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 type Params = {
   params: {
@@ -10,12 +11,10 @@ type Params = {
 };
 
 export default function Post({ post }: any) {
-  console.log({ 'post.content': post.content });
-
   return (
     <div>
       {' '}
-      <MDXRemote {...post.content} components={{ TestComponent }} />
+      <MDXRemote {...post.content} />
     </div>
   );
 }
@@ -24,13 +23,15 @@ export async function getStaticProps({ params }: Params) {
   const post = getPostBySlug(params.slug, [
     'title',
     'date',
-    'slug',
-    'author',
     'content',
-    'ogImage',
-    'coverImage',
+    'image',
   ]);
-  const content = await serialize(post.content || '');
+  const content = await serialize(post.content || '', {
+    mdxOptions: {
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+    },
+  });
 
   return {
     props: {

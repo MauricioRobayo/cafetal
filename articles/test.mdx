@@ -1,27 +1,60 @@
 ---
-title: 'Dynamic Routing and Static Generation'
-excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus.'
-coverImage: '/assets/blog/dynamic-routing/cover.jpg'
-date: '2020-03-16T05:35:07.322Z'
+title: 'Test'
+slug: 'test'
+excerpt: ''
+source: 'https://biblioteca.cenicafe.org/bitstream/10778/725/1/27031.pdf'
+image: ''
+date: '2021-09-10T21:53:21.497Z'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla
-est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus.
-Praesent elementum facilisis leo vel fringilla. Congue mauris rhoncus aenean vel.
-Egestas sed tempus urna et pharetra pharetra massa massa ultricies.
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
 
-Venenatis cras sed felis eget velit. Consectetur libero id faucibus nisl tincidunt.
-Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Volutpat consequat
-mauris nunc congue nisi vitae. Id aliquet risus feugiat in ante metus dictum at tempor.
-Sed blandit libero volutpat sed cras. Sed odio morbi quis commodo odio aenean sed
-adipiscing. Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas
-congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in. Nibh cras
-pulvinar mattis nunc sed. Luctus accumsan tortor posuere ac ut consequat semper viverra.
-Fringilla ut morbi tincidunt augue interdum velit euismod.
+## Factor de rendimiento
 
-<TestComponent />
+Es la cantidad de Café Pergamino Seco (<abbr title="Café Pergamino Seco">CPS</abbr>) que se necesita trillar para obtener un saco de 70 kilos de café excelso de exportación y se determina al momento de realizar el análisis físico del café que se va a vender.
 
-## Lorem Ipsum
+De 92.2 kilos de <abbr title="Café Pergamino Seco">CPS</abbr> tipo Federación se obtiene:
 
-Tristique senectus et netus et malesuada fames ac turpis. Ridiculous mus mauris vitae ultricies leo integer malesuada nunc vel. In mollis nunc sed id semper. Egestas tellus rutrum tellus pellentesque. Phasellus vestibulum lorem sed risus ultricies tristique nulla. Quis blandit turpis cursus in hac habitasse platea dictumst quisque. Eros donec ac odio tempor orci dapibus ultrices. Aliquam sem et tortor consequat id porta nibh. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Diam vulputate ut pharetra sit amet. Ut tellus elementum sagittis vitae et leo. Arcu non odio euismod lacinia at quis risus sed vulputate.
+- 70 kg de café excelso (75.92%)
+- 18.2 kg de mermas, impurezas, cisco (19.74%)
+- 4 kg de subproductos pasilla (4.34%)
+
+## Características del café pergamino
+
+- Humedad de 10 a 12%.
+- Olor característico de café pergamino, seco y fresco.
+- Color uniforme propio de café correctamente beneficiado.
+- Libre de todo insecto, hongos y contaminantes.
+- Factor de rendimiento menor o igual a 100 kilos de CPS por saco de 70 kilos de excelso.
+
+## Características del café excelso
+
+- Humedad de 10 a 12%.
+- Olor característico de café pergamino.
+- Color uniforme.
+- Libre de todo insecto, hongos y contaminantes.
+- Tamaño del grano sobre malla 14, con tolerancia de 1.5% sobre malla 12.
+
+## Cálculo del factor de rendimiento
+
+1. Tome una muestra de <abbr title="Café Pergamino Seco">CPS</abbr> (mínimo 650 gramos).
+2. Revuelva la muestra (homogenizar).
+3. Tome una submuestra de 250 gramos para trillar y otra de 400 gramos para determinar la humedad.
+4. Pese las almendras libres de cisco.
+5. Separe pasillas (granos con defectos).
+6. Tamice las almendras (Zaranda).
+7. Determine el peso del excelso. Son almendras sanas y limpias que no pasan la malla 14 y aumente el 1.5% al peso obtenido. (Tolerancia sobre malla 12).
+8. Determine el factor de rendimiento $f$ dividiendo el peso de la muestra de <abbr title="Café Pergamino Seco">CPS</abbr> $p$ tomada en el paso 2 entre el peso de café excelso resultante $e$ y multiplicando el resultado por $70$: $f = (p/e) 70$.
+
+## Ejemplo
+
+Para una muestra de 250 gramos que arrojó 195.5 gramos de café excelso, el cálculo sería el siguiente:
+
+$$
+f = \left( \frac{250g}{195.5g} \right) 70g = 89.5
+$$

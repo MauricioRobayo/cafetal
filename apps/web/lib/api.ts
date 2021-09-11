@@ -8,8 +8,6 @@ if (!articlesPath) {
   throw new Error('Could not load `articlesPath` environment variable');
 }
 
-console.log('😎 api', { articlesPath });
-
 const postsDirectory = join(process.cwd(), articlesPath);
 
 type Items = {
@@ -30,11 +28,12 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
 
   // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
-    if (field === 'slug') {
-      items[field] = realSlug;
-    }
     if (field === 'content') {
       items[field] = content;
+    }
+
+    if (field === 'slug') {
+      items[field] = data[field];
     }
 
     if (data[field]) {
@@ -47,6 +46,7 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
 
 export function getAllPosts(fields: string[] = []) {
   const slugs = getPostSlugs();
+
   const posts = slugs
     .map((slug) => getPostBySlug(slug, fields))
     .sort(sortByDateDesc);
