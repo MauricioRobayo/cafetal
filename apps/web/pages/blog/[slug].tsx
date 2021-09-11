@@ -1,4 +1,4 @@
-import { getPostBySlug, getPostSlugs } from '@calculadora-cafetera/articles';
+import { getPostBySlug, getPostSlugs } from '@calculadora-cafetera/posts';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import remarkMath from 'remark-math';

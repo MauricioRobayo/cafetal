@@ -1,4 +1,4 @@
-import { getAllPosts } from './articles';
+import { getAllPosts } from './posts';
 
 describe('mdx', () => {
   it('should work', () => {

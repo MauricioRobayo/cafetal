@@ -1,4 +1,4 @@
-import { BlogPost, getAllPosts } from '@calculadora-cafetera/articles';
+import { BlogPost, getAllPosts } from '@calculadora-cafetera/posts';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
