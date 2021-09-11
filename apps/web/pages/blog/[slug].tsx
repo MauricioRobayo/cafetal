@@ -1,9 +1,11 @@
 import { getPostBySlug, getPostSlugs } from '@calculadora-cafetera/posts';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
+import { PostLayout } from '@calculadora-cafetera/ui';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
+import { ReactElement } from 'react';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
 
 interface PostProps {
   post: {
@@ -68,3 +70,7 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
+
+Post.getLayout = function Layout(page: ReactElement) {
+  return <PostLayout>{page}</PostLayout>;
+};
