@@ -6,12 +6,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node", "jest"],
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "removeComments": true
+    "isolatedModules": true
   },
   "files": ["../../types/styled-components/index.d.ts"],
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
