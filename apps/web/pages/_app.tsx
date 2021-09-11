@@ -3,8 +3,9 @@ import { Normalize } from 'styled-normalize';
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from '../styles/theme';
 import GlobalStyle from '../styles/global';
-import type { ReactElement, ReactNode } from 'react';
-import type { NextPage } from 'next';
+import { ReactElement, ReactNode } from 'react';
+import { NextPage } from 'next';
+import { Layout } from '@calculadora-cafetera/components';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -15,7 +16,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
   return (
     <>
       <ThemeProvider theme={defaultTheme}>

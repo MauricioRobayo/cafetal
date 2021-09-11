@@ -3,7 +3,6 @@ import {
   getPostBySlug,
   getPostSlugs,
 } from '@calculadora-cafetera/posts';
-import { PostLayout } from '@calculadora-cafetera/components';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import { ReactElement } from 'react';
@@ -71,7 +70,3 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
-
-Post.getLayout = function Layout(page: ReactElement) {
-  return <PostLayout>{page}</PostLayout>;
-};
