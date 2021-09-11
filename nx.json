@@ -27,13 +27,13 @@
     ]
   },
   "projects": {
+    "components": {
+      "tags": []
+    },
     "formatter": {
       "tags": []
     },
     "posts": {
-      "tags": []
-    },
-    "components": {
       "tags": []
     },
     "utils": {
