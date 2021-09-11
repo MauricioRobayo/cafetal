@@ -19,6 +19,7 @@
     "strict": true,
     "paths": {
       "@calculadora-cafetera/formatter": ["libs/formatter/src/index.ts"],
+      "@calculadora-cafetera/articles": ["libs/articles/src/index.ts"],
       "@calculadora-cafetera/ui": ["libs/ui/src/index.ts"],
       "@calculadora-cafetera/utils": ["libs/utils/src/index.ts"]
     }
