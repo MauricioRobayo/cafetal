@@ -6,6 +6,7 @@ export interface BlogPost {
   title: string;
   date: string;
   content: string;
+  slug?: string;
   excerpt?: string;
   image?: string;
 }
@@ -38,6 +39,10 @@ export async function getPostBySlug(
   };
 
   for (const field of fields) {
+    if (field === 'slug') {
+      post.slug = slug;
+    }
+
     if (data[field]) {
       post[field] = data[field];
     }
@@ -50,7 +55,13 @@ export async function getAllPosts(fields: (keyof BlogPost)[] = []) {
   const slugs = await getPostSlugs();
 
   const posts = await Promise.all(
-    slugs.map((slug) => getPostBySlug(slug, fields))
+    slugs.map(async (slug) => {
+      const post = getPostBySlug(slug, fields);
+      return {
+        ...post,
+        slug,
+      };
+    })
   );
 
   return posts.sort(sortByDateDesc);

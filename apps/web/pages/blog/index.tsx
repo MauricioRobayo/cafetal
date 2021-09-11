@@ -2,7 +2,7 @@ import { BlogPost, getAllPosts } from '../../lib/api';
 import { GetStaticProps } from 'next';
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPosts = await getAllPosts(['title', 'excerpt']);
+  const allPosts = await getAllPosts(['slug', 'excerpt']);
 
   return {
     props: { allPosts },
