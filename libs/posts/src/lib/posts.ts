@@ -1,11 +1,15 @@
 import fs from 'fs/promises';
-import { join } from 'path';
 import matter from 'gray-matter';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types';
+import { serialize } from 'next-mdx-remote/serialize';
+import { join } from 'path';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
 
 export interface BlogPost {
   title: string;
   date: string;
-  content: string;
+  content: MDXRemoteSerializeResult<Record<string, unknown>>;
   slug?: string;
   excerpt?: string;
   image?: string;
@@ -33,7 +37,12 @@ export async function getPostBySlug(
   const { data, content } = matter(fileContents);
 
   const post: BlogPost = {
-    content,
+    content: await serialize(content, {
+      mdxOptions: {
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+      },
+    }),
     title: data.title,
     date: data.date,
   };

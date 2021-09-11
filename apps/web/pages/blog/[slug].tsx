@@ -5,17 +5,12 @@ import {
 } from '@calculadora-cafetera/posts';
 import { PostLayout } from '@calculadora-cafetera/components';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
 import { ReactElement } from 'react';
-import rehypeKatex from 'rehype-katex';
-import remarkMath from 'remark-math';
 import Head from 'next/head';
 
 interface PostProps {
-  post: Omit<BlogPost, 'content'> & {
-    content: MDXRemoteSerializeResult<Record<string, unknown>>;
-  };
+  post: BlogPost;
 }
 
 export default function Post({ post }: PostProps) {
@@ -54,19 +49,10 @@ export async function getStaticProps({
     'content',
     'image',
   ]);
-  const content = await serialize(post.content || '', {
-    mdxOptions: {
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
-    },
-  });
 
   return {
     props: {
-      post: {
-        ...post,
-        content,
-      },
+      post,
     },
   };
 }
