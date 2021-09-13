@@ -6,6 +6,7 @@ import GlobalStyle from '../styles/global';
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
 import { Layout } from '@calculadora-cafetera/components';
+import { GoogleAnalytics, usePagesViews } from 'nextjs-google-analytics';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -17,8 +18,12 @@ type AppPropsWithLayout = AppProps & {
 
 function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
+
+  usePagesViews();
+
   return (
     <>
+      <GoogleAnalytics />
       <ThemeProvider theme={defaultTheme}>
         <Normalize />
         <GlobalStyle />
