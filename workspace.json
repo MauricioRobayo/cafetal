@@ -1,6 +1,27 @@
 {
   "version": 2,
   "projects": {
+    "components": {
+      "root": "libs/components",
+      "sourceRoot": "libs/components/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/components/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/components"],
+          "options": {
+            "jestConfig": "libs/components/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "formatter": {
       "root": "libs/formatter",
       "sourceRoot": "libs/formatter/src",
@@ -22,22 +43,22 @@
         }
       }
     },
-    "ui": {
-      "root": "libs/ui",
-      "sourceRoot": "libs/ui/src",
+    "posts": {
+      "root": "libs/posts",
+      "sourceRoot": "libs/posts/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/ui/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": ["libs/posts/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui"],
+          "outputs": ["coverage/libs/posts"],
           "options": {
-            "jestConfig": "libs/ui/jest.config.js",
+            "jestConfig": "libs/posts/jest.config.js",
             "passWithNoTests": true
           }
         }

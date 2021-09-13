@@ -1,56 +1,68 @@
-import { getAllPosts, getPostBySlug } from '../../lib/api';
-import { serialize } from 'next-mdx-remote/serialize';
+import {
+  BlogPost,
+  getPostBySlug,
+  getPostSlugs,
+} from '@calculadora-cafetera/posts';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
+import Head from 'next/head';
 
-type Params = {
-  params: {
-    slug: string;
-  };
-};
+interface PostProps {
+  post: BlogPost;
+}
 
-export default function Post({ post }: any) {
+export default function Post({ post }: PostProps) {
   return (
-    <div>
-      {' '}
-      <MDXRemote {...post.content} />
-    </div>
+    <>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+          integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+          crossOrigin="anonymous"
+        />
+      </Head>
+      <article>
+        <h1>{post.title}</h1>
+        <MDXRemote {...post.content} />
+      </article>
+    </>
   );
 }
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps({
+  params,
+}: GetStaticPropsContext<{ slug: string }>): Promise<
+  GetStaticPropsResult<PostProps>
+> {
+  if (!params) {
+    return {
+      notFound: true,
+    };
+  }
+
   const post = await getPostBySlug(params.slug, [
     'title',
     'date',
     'content',
     'image',
   ]);
-  const content = await serialize(post.content || '', {
-    mdxOptions: {
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
-    },
-  });
 
   return {
     props: {
-      post: {
-        ...post,
-        content,
-      },
+      post,
     },
   };
 }
 
 export async function getStaticPaths() {
-  const posts = await getAllPosts(['slug']);
+  const slugs = await getPostSlugs();
 
   return {
-    paths: posts.map((post) => {
+    paths: slugs.map((slug) => {
       return {
         params: {
-          slug: post.slug,
+          slug,
         },
       };
     }),

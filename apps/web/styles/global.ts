@@ -8,10 +8,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: 16px;
   }
   body {
-    color: ${({ theme }) => theme.color.text1};
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    line-height: normal
+    color: ${({ theme }) => theme.colors.text1};
+    font-family: ${({ theme }) => theme.font.text1};
+    line-height: normal;
+
   }
 `;
 
