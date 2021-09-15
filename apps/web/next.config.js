@@ -11,10 +11,7 @@ const nextConfig = {
     svgr: false,
   },
   env: {
-    articlesPath: 'articles',
-  },
-  experimental: {
-    esmExternals: 'loose',
+    postsPath: 'posts',
   },
 };
 

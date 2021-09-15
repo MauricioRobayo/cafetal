@@ -16,12 +16,12 @@ export default async function nextWatchServer(
   const handle = app.getRequestHandler();
   await app.prepare();
 
-  const articlesPath = settings.conf.env.articlesPath;
+  const postsPath = settings.conf.env.postsPath;
 
   // watch folders if specified
-  if (articlesPath) {
+  if (postsPath) {
     chokidar
-      .watch(articlesPath, {
+      .watch(postsPath, {
         usePolling: false,
         ignoreInitial: true,
       })
