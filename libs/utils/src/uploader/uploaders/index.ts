@@ -1,1 +1,1 @@
-export * from "./toGCS";
+export * from './to-gcs';
