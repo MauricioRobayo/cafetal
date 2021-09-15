@@ -1,7 +1,7 @@
-import camelCase from "lodash/camelCase";
+import camelCase from 'lodash/camelCase';
 
 function defaultValueParser(value: string): number {
-  return Number(value.replace(/,/g, ""));
+  return Number(value.replace(/,/g, ''));
 }
 
 export function createBaseParser(
