@@ -22,6 +22,7 @@
       "@calculadora-cafetera/formatter": ["libs/formatter/src/index.ts"],
       "@calculadora-cafetera/models": ["libs/models/src/index.ts"],
       "@calculadora-cafetera/posts": ["libs/posts/src/index.ts"],
+      "@calculadora-cafetera/repositories": ["libs/repositories/src/index.ts"],
       "@calculadora-cafetera/utils": ["libs/utils/src/index.ts"]
     }
   },
