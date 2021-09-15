@@ -42,6 +42,9 @@
     "repositories": {
       "tags": []
     },
+    "scripts": {
+      "tags": []
+    },
     "utils": {
       "tags": []
     },
