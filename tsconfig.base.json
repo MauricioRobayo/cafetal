@@ -20,6 +20,7 @@
     "paths": {
       "@calculadora-cafetera/components": ["libs/components/src/index.ts"],
       "@calculadora-cafetera/formatter": ["libs/formatter/src/index.ts"],
+      "@calculadora-cafetera/models": ["libs/models/src/index.ts"],
       "@calculadora-cafetera/posts": ["libs/posts/src/index.ts"],
       "@calculadora-cafetera/utils": ["libs/utils/src/index.ts"]
     }
