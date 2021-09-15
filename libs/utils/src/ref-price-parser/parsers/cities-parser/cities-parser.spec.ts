@@ -1,6 +1,6 @@
 import { citiesParser } from '..';
 import { exampleContent } from '../../example-content';
-import { CitiesRefPrice } from '../../../models/ref-price-model';
+import { CitiesRefPrice } from '@calculadora-cafetera/models';
 
 const expected: CitiesRefPrice = {
   armenia: 1_735_500,

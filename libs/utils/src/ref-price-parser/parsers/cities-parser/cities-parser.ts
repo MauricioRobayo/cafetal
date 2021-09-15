@@ -1,4 +1,4 @@
-import { CitiesRefPrice } from '../../../models/ref-price-model';
+import { CitiesRefPrice } from '@calculadora-cafetera/models';
 import { createExtendedParser } from '../create-parser';
 
 const accentInsensitive = (str: string): string =>
