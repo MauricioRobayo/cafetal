@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'coffee-reference-price',
+  displayName: 'reference-price',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/coffee-reference-price',
+  coverageDirectory: '../../coverage/apps/reference-price',
 };
