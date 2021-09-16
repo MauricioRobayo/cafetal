@@ -11,9 +11,8 @@ interface DownloadResult {
 
 interface ExponentialBackOffResult {
   elapseTimeMs: number;
-  maxExecutionExceeded: boolean;
   retries: number;
-  status: 'success' | 'failed';
+  status: 'success' | 'maxRetries exceeded' | 'maxExecutionTime exceeded';
 }
 
 type SuccessfulExponentialBackOffResult = DownloadResult &
@@ -50,20 +49,24 @@ async function fetchFile(etag?: string): Promise<DownloadResult | null> {
 }
 
 interface DownloadFileWithExponentialBackOffOptons {
+  delayFactor?: number;
   etag?: string;
-  maxExecutionTimeMs: number;
-  minRndDeltaMs: number;
-  maxRndDeltaMs: number;
-  delayFactor: number;
   fetcher?: typeof fetchFile;
+  maxExecutionTimeMs?: number;
+  maxRetries?: number;
+  maxRndDeltaMs: number;
+  minRndDeltaMs: number;
+  sleep?: (ms: number) => Promise<void>;
 }
 export async function downloadFileWithExponentialBackOff({
+  delayFactor = 2,
   etag,
-  maxExecutionTimeMs,
-  minRndDeltaMs,
-  maxRndDeltaMs,
-  delayFactor,
   fetcher = fetchFile,
+  maxExecutionTimeMs,
+  maxRetries = 25,
+  maxRndDeltaMs,
+  minRndDeltaMs,
+  sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms)),
 }: DownloadFileWithExponentialBackOffOptons): Promise<
   SuccessfulExponentialBackOffResult | ExponentialBackOffResult
 > {
@@ -76,12 +79,19 @@ export async function downloadFileWithExponentialBackOff({
     const downloadResult = await fetcher(etag);
     const elapseTimeMs = Date.now() - startTime;
 
-    if (elapseTimeMs >= maxExecutionTimeMs) {
+    if (maxExecutionTimeMs && elapseTimeMs >= maxExecutionTimeMs) {
       return {
         elapseTimeMs,
-        maxExecutionExceeded: true,
         retries: retries - 1,
-        status: 'failed',
+        status: 'maxExecutionTime exceeded',
+      };
+    }
+
+    if (retries > maxRetries) {
+      return {
+        elapseTimeMs,
+        retries: retries - 1,
+        status: 'maxRetries exceeded',
       };
     }
 
@@ -95,7 +105,6 @@ export async function downloadFileWithExponentialBackOff({
       return {
         ...downloadResult,
         elapseTimeMs,
-        maxExecutionExceeded: false,
         retries,
         status: 'success',
       };
@@ -104,7 +113,7 @@ export async function downloadFileWithExponentialBackOff({
     retries = retries + 1;
     const randomDeltaMs = randBetween(minRndDeltaMs, maxRndDeltaMs);
     delayMs = (delayMs + randomDeltaMs) * delayFactor;
-    await new Promise((resolve) => setTimeout(resolve, delayMs));
+    await sleep(delayMs);
   }
 }
 
