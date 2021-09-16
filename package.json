@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "start:ref-price": "nx start ref-price"
   },
   "private": true,
   "dependencies": {
