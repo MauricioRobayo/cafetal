@@ -14,6 +14,7 @@ jobs:
           node-version: '14'
           cache: 'npm'
       - run: npm ci
+      - run: npx --yes nx build ref-price
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
@@ -26,4 +27,4 @@ jobs:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
           MONGODB_COLLECTION: ${{ secrets.MONGODB_COLLECTION }}
-        run: npx --yes nx run ref-price:start
+        run: node dist/apps/ref-price/main.js
