@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 const fileUrl =
-  "https://federaciondecafeteros.org/app/uploads/2019/10/precio_cafe-1.pdf";
+  'https://federaciondecafeteros.org/app/uploads/2019/10/precio_cafe-1.pdf';
 
 interface DownloadResult {
   data: Buffer;
@@ -14,7 +14,7 @@ interface ExponentialBackOffResult {
   maxExecutionExceeded: boolean;
   maxExecutionTime: number;
   retries: number;
-  status: "success" | "failed";
+  status: 'success' | 'failed';
 }
 
 type SuccessfulExponentialBackOffResult = DownloadResult &
@@ -27,15 +27,15 @@ export class FileDownloader {
     const headers: { [k: string]: string } = {};
 
     if (this.etag) {
-      headers["If-None-Match"] = this.etag;
+      headers['If-None-Match'] = this.etag;
     }
 
     try {
       const {
         data,
-        headers: { etag, "last-modified": lastModified },
+        headers: { etag, 'last-modified': lastModified },
       } = await axios.get<ArrayBuffer>(fileUrl, {
-        responseType: "arraybuffer",
+        responseType: 'arraybuffer',
         headers,
       });
 
@@ -72,7 +72,7 @@ export class FileDownloader {
           maxExecutionExceeded: false,
           maxExecutionTime,
           retries,
-          status: "success",
+          status: 'success',
         };
       }
 
@@ -82,7 +82,7 @@ export class FileDownloader {
           maxExecutionExceeded: true,
           maxExecutionTime,
           retries,
-          status: "failed",
+          status: 'failed',
         };
       }
 
@@ -91,7 +91,7 @@ export class FileDownloader {
       const randomDeltaMs = randBetween(60 * 1000, 4 * 60 * 1000);
       delayMs = (delayMs + randomDeltaMs) * 2;
 
-      console.log("downloadFileWithExponentialBackOff", {
+      console.log('downloadFileWithExponentialBackOff', {
         delayMs,
         elapseTimeMs,
         retries,
@@ -104,7 +104,7 @@ export class FileDownloader {
   static isSuccessfulExponentialBackOffResult(
     result: SuccessfulExponentialBackOffResult | ExponentialBackOffResult
   ): result is SuccessfulExponentialBackOffResult {
-    return result.status === "success";
+    return result.status === 'success';
   }
 }
 

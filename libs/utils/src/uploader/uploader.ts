@@ -1,4 +1,4 @@
-import { toGCS } from "./uploaders";
+import { toGCS } from './uploaders';
 
 export type Uploader = (fileName: string, destName: string) => Promise<void>;
 
