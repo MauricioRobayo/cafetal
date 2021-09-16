@@ -13,24 +13,6 @@ const nextConfig = {
   env: {
     postsPath: 'posts',
   },
-  webpack: (config) => {
-    config.resolve.fallback = {
-      crypto: false,
-      fs: false,
-      https: false,
-      http: false,
-      os: false,
-      path: false,
-      stream: false,
-      constants: false,
-      zlib: false,
-      child_process: false,
-      net: false,
-      tls: false,
-    };
-
-    return config;
-  },
 };
 
 module.exports = withNx(nextConfig);
