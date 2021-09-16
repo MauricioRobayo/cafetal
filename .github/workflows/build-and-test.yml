@@ -14,6 +14,6 @@ jobs:
           node-version: '14'
           cache: 'npm'
       - run: npm ci
-      - run: nx lint
-      - run: nx test
-      - run: nx build
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build
