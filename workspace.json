@@ -95,7 +95,8 @@
         "start": {
           "executor": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "ref-price:build"
+            "buildTarget": "ref-price:build",
+            "watch": false
           }
         },
         "lint": {
