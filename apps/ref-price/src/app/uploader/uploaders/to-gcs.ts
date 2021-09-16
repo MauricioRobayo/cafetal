@@ -16,5 +16,7 @@ export async function toGCS(data: Buffer, destName: string): Promise<void> {
     return;
   }
 
-  await file.save(data);
+  // Disable resumable to avoid a difficult to debug error
+  // https://stackoverflow.com/q/49547823/2002514
+  await file.save(data, { resumable: false });
 }
