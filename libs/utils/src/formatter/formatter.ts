@@ -13,5 +13,20 @@ const currencyFormatter = new Intl.NumberFormat('es-US', {
   minimumFractionDigits: 0,
 });
 
+const longDateFormatterCO = new Intl.DateTimeFormat('es-CO', {
+  day: 'numeric',
+  month: 'long',
+  weekday: 'long',
+  year: 'numeric',
+});
+
+const shortDateFormatterCO = new Intl.DateTimeFormat('es-CO', {
+  day: 'numeric',
+  month: 'numeric',
+  year: 'numeric',
+});
+
 export const formatCurrency = currencyFormatter.format;
 export const formatUnit = unitFormatter.format;
+export const formatLongDateCO = longDateFormatterCO.format;
+export const formatShortDateCO = shortDateFormatterCO.format;
