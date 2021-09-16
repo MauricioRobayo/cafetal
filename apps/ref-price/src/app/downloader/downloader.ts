@@ -76,6 +76,21 @@ export async function downloadFileWithExponentialBackOff({
     const downloadResult = await fetcher(etag);
     const elapseTimeMs = Date.now() - startTime;
 
+    if (elapseTimeMs >= maxExecutionTimeMs) {
+      return {
+        elapseTimeMs,
+        maxExecutionExceeded: true,
+        retries: retries - 1,
+        status: 'failed',
+      };
+    }
+
+    console.log('downloadFileWithExponentialBackOff', {
+      delayMs,
+      elapseTimeMs,
+      retries,
+    });
+
     if (downloadResult) {
       return {
         ...downloadResult,
@@ -86,26 +101,9 @@ export async function downloadFileWithExponentialBackOff({
       };
     }
 
-    if (elapseTimeMs >= maxExecutionTimeMs) {
-      return {
-        elapseTimeMs,
-        maxExecutionExceeded: true,
-        retries,
-        status: 'failed',
-      };
-    }
-
     retries = retries + 1;
-
     const randomDeltaMs = randBetween(minRndDeltaMs, maxRndDeltaMs);
     delayMs = (delayMs + randomDeltaMs) * delayFactor;
-
-    console.log('downloadFileWithExponentialBackOff', {
-      delayMs,
-      elapseTimeMs,
-      retries,
-    });
-
     await new Promise((resolve) => setTimeout(resolve, delayMs));
   }
 }
