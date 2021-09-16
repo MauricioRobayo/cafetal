@@ -64,19 +64,19 @@
         }
       }
     },
-    "reference-price": {
-      "root": "apps/reference-price",
-      "sourceRoot": "apps/reference-price/src",
+    "ref-price": {
+      "root": "apps/ref-price",
+      "sourceRoot": "apps/ref-price/src",
       "projectType": "application",
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/reference-price",
-            "main": "apps/reference-price/src/main.ts",
-            "tsConfig": "apps/reference-price/tsconfig.app.json",
-            "assets": ["apps/reference-price/src/assets"]
+            "outputPath": "dist/apps/ref-price",
+            "main": "apps/ref-price/src/main.ts",
+            "tsConfig": "apps/ref-price/tsconfig.app.json",
+            "assets": ["apps/ref-price/src/assets"]
           },
           "configurations": {
             "production": {
@@ -85,8 +85,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/reference-price/src/environments/environment.ts",
-                  "with": "apps/reference-price/src/environments/environment.prod.ts"
+                  "replace": "apps/ref-price/src/environments/environment.ts",
+                  "with": "apps/ref-price/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -95,21 +95,21 @@
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "reference-price:build"
+            "buildTarget": "ref-price:build"
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/reference-price/**/*.ts"]
+            "lintFilePatterns": ["apps/ref-price/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/reference-price"],
+          "outputs": ["coverage/apps/ref-price"],
           "options": {
-            "jestConfig": "apps/reference-price/jest.config.js",
+            "jestConfig": "apps/ref-price/jest.config.js",
             "passWithNoTests": true
           }
         }
