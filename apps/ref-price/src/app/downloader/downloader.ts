@@ -112,7 +112,7 @@ export async function downloadFileWithExponentialBackOff({
 
     retries = retries + 1;
     const randomDeltaMs = randBetween(minRndDeltaMs, maxRndDeltaMs);
-    delayMs = (delayMs + randomDeltaMs) * delayFactor;
+    delayMs = Math.round((delayMs + randomDeltaMs) * delayFactor);
     await sleep(delayMs);
   }
 }
