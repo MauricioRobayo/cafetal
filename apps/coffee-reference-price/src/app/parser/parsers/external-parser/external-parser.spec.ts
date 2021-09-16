@@ -1,6 +1,6 @@
 import { externalParser } from '.';
 import { exampleContent } from '../../example-content';
-import { ExternalRefPrice } from '@calculadora-cafetera/models';
+import { ExternalRefPrice } from '@cafetal/models';
 
 it('should return external reference price', () => {
   const parsed = externalParser(exampleContent);

@@ -1,4 +1,4 @@
-import { CupDiscount } from '@calculadora-cafetera/models';
+import { CupDiscount } from '@cafetal/models';
 import { exampleContent } from '../../example-content';
 import { cupDiscountParser } from '.';
 

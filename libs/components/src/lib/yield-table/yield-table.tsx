@@ -1,7 +1,7 @@
 import {
   getSellPrice,
   getPremiumGramsBasedOnYieldFactor,
-} from '@calculadora-cafetera/utils';
+} from '@cafetal/utils';
 import color from 'color';
 import styled, { css } from 'styled-components';
 

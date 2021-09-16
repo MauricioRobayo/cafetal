@@ -1,5 +1,5 @@
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.js';
-import { RefPriceStorage } from '@calculadora-cafetera/models';
+import { RefPriceStorage } from '@cafetal/models';
 import {
   citiesParser,
   cupDiscountParser,

@@ -1,4 +1,4 @@
-import { CupDiscount } from '@calculadora-cafetera/models';
+import { CupDiscount } from '@cafetal/models';
 import { createExtendedParser } from '../create-parser';
 
 const regExp = /tipo (i q1|ii q2|iii q3) ([\d. ]+) /gi;

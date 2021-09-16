@@ -3,7 +3,7 @@ import {
   getPremiumGramsBasedOnYieldFactor,
   formatCurrency,
   formatUnit,
-} from '@calculadora-cafetera/utils';
+} from '@cafetal/utils';
 import styled from 'styled-components';
 import { useImmerReducer } from 'use-immer';
 import NumberInput from '../number-input/number-input';

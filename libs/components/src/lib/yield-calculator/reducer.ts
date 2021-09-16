@@ -1,4 +1,4 @@
-import { getSellPrice, getYieldFactor } from '@calculadora-cafetera/utils';
+import { getSellPrice, getYieldFactor } from '@cafetal/utils';
 import { getType } from 'typesafe-actions';
 import {
   setPremiumGrams,

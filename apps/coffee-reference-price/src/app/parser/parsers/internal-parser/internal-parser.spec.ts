@@ -1,6 +1,6 @@
 import { internalParser } from '.';
 import { exampleContent } from '../../example-content';
-import { InternalRefPrice } from '@calculadora-cafetera/models';
+import { InternalRefPrice } from '@cafetal/models';
 
 it('should return internal reference price', () => {
   const parsed = internalParser(exampleContent);

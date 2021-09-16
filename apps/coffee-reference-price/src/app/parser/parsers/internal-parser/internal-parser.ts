@@ -4,7 +4,7 @@ import {
   lowQualityRefPricePerPointParser,
   baseYieldFactorParser,
 } from '../base-parsers';
-import { InternalRefPrice } from '@calculadora-cafetera/models';
+import { InternalRefPrice } from '@cafetal/models';
 
 export function internalParser(content: string): InternalRefPrice {
   return {

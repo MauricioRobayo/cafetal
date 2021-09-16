@@ -1,4 +1,4 @@
-import { ExternalRefPrice } from '@calculadora-cafetera/models';
+import { ExternalRefPrice } from '@cafetal/models';
 import { createExtendedParser } from '../create-parser';
 
 const positionsMap: { [k: string]: string } = {

@@ -18,11 +18,11 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "paths": {
-      "@calculadora-cafetera/components": ["libs/components/src/index.ts"],
-      "@calculadora-cafetera/models": ["libs/models/src/index.ts"],
-      "@calculadora-cafetera/posts": ["libs/posts/src/index.ts"],
-      "@calculadora-cafetera/repositories": ["libs/repositories/src/index.ts"],
-      "@calculadora-cafetera/utils": ["libs/utils/src/index.ts"]
+      "@cafetal/components": ["libs/components/src/index.ts"],
+      "@cafetal/models": ["libs/models/src/index.ts"],
+      "@cafetal/posts": ["libs/posts/src/index.ts"],
+      "@cafetal/repositories": ["libs/repositories/src/index.ts"],
+      "@cafetal/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

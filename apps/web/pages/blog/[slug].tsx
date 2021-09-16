@@ -1,8 +1,4 @@
-import {
-  BlogPost,
-  getPostBySlug,
-  getPostSlugs,
-} from '@calculadora-cafetera/posts';
+import { BlogPost, getPostBySlug, getPostSlugs } from '@cafetal/posts';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Head from 'next/head';

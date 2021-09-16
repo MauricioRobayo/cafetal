@@ -1,6 +1,6 @@
 import { Collection, InsertOneResult, MongoClient } from 'mongodb';
-import { RefPriceStorage } from '@calculadora-cafetera/models';
-import { getEnvVars } from '@calculadora-cafetera/utils';
+import { RefPriceStorage } from '@cafetal/models';
+import { getEnvVars } from '@cafetal/utils';
 
 const [MONGODB_URI, MONGODB_DB_NAME, MONGODB_COLLECTION] = getEnvVars([
   'MONGODB_URI',

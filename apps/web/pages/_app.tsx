@@ -5,7 +5,7 @@ import { defaultTheme } from '../styles/theme';
 import GlobalStyle from '../styles/global';
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
-import { Layout } from '@calculadora-cafetera/components';
+import { Layout } from '@cafetal/components';
 import { GoogleAnalytics, usePagesViews } from 'nextjs-google-analytics';
 
 type NextPageWithLayout = NextPage & {
