@@ -6,8 +6,7 @@
     "start": "nx serve",
     "lint": "nx lint",
     "build": "nx build",
-    "test": "nx test",
-    "start:ref-price": "nx start ref-price"
+    "test": "nx test"
   },
   "private": true,
   "dependencies": {
