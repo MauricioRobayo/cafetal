@@ -130,20 +130,8 @@
       "sourceRoot": "libs/repositories/src",
       "projectType": "library",
       "targets": {
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/libs/repositories",
-            "tsConfig": "libs/repositories/tsconfig.lib.json",
-            "packageJson": "libs/repositories/package.json",
-            "main": "libs/repositories/src/index.ts",
-            "assets": ["libs/repositories/*.md"]
-          }
-        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["libs/repositories/**/*.ts"]
           }
