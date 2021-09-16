@@ -22,27 +22,6 @@
         }
       }
     },
-    "formatter": {
-      "root": "libs/formatter",
-      "sourceRoot": "libs/formatter/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/formatter/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/formatter"],
-          "options": {
-            "jestConfig": "libs/formatter/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "models": {
       "root": "libs/models",
       "sourceRoot": "libs/models/src",
