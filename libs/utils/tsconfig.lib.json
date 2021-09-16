@@ -4,8 +4,10 @@
     "outDir": "../../dist/out-tsc",
     "declaration": true,
     "types": [],
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"]
