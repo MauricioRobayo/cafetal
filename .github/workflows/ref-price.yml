@@ -26,4 +26,4 @@ jobs:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
           MONGODB_COLLECTION: ${{ secrets.MONGODB_COLLECTION }}
-        run: npx --yes nx start ref-price
+        run: npx --yes nx run ref-price:start
