@@ -1,8 +1,6 @@
-import {
-  FileDownloader,
-  uploadFile,
-  parser,
-} from '@calculadora-cafetera/utils';
+import { FileDownloader } from './app/downloader';
+import { parser } from './app/parser';
+import { uploadFile } from './app/uploader';
 import { RefPriceRepository } from '@calculadora-cafetera/repositories';
 
 const repo = new RefPriceRepository();

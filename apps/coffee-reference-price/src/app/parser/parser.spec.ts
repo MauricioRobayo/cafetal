@@ -1,5 +1,5 @@
 import path from 'path';
-import { getContent, getPdfDocumentProxy, parser } from './ref-price-parser';
+import { getContent, getPdfDocumentProxy, parser } from './parser';
 import { exampleContent } from './example-content';
 import fs from 'fs/promises';
 

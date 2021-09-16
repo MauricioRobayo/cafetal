@@ -1,5 +1,5 @@
 import { Storage } from '@google-cloud/storage';
-import { getEnvVars } from '../../get-env-vars';
+import { getEnvVars } from '../../../../../../libs/utils/src/get-env-vars';
 
 const [bucketName] = getEnvVars(['GCS_BUCKET_NAME']);
 

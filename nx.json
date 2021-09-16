@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "coffee-reference-price": {
+      "tags": []
+    },
     "components": {
       "tags": []
     },
@@ -34,9 +37,6 @@
       "tags": []
     },
     "posts": {
-      "tags": []
-    },
-    "process-ref-price": {
       "tags": []
     },
     "repositories": {
